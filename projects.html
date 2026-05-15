@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects - Anirudh Sahu</title>
+  <meta name="description" content="Projects built by Anirudh Sahu." />
+  <meta property="og:title" content="Projects - Anirudh Sahu" />
+  <meta property="og:description" content="Projects built by Anirudh Sahu." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="assets/web_logo.png" />
+</head>
+
+<body>
+  <div class="page">
+    <!-- Navigation: Keeping things consistent across the site -->
+    <header class="header">
+      <div class="header-inner">
+        <a class="brand" href="/">
+          <img src="assets/as logo.png" alt="Logo" class="brand-logo" />
+          <span>aspartic</span>
+        </a>
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="projects.html" class="active">Projects</a>
+        </nav>
+        <button class="cm-hint" onclick="openPalette()" aria-label="Search">
+          <span>Search...</span>
+          <kbd>Ctrl K</kbd>
+        </button>
+        <div class="header-actions">
+          <button class="icon-btn" data-theme-toggle aria-label="Toggle theme">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="shell">
+      <div aria-hidden class="side-rail left"></div>
+      <div aria-hidden class="side-rail right"></div>
+      <main class="frame">
+        <div aria-hidden class="band-grid"></div>
+
+        <!-- Intro: A little context on the work listed here -->
+        <div class="profile" style="padding-bottom: 1.5rem;">
+          <div>
+            <h1>Projects</h1>
+            <p class="profile-tagline">Some things I've built along the way.</p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Showcase: The primary projects I'm proud of -->
+        <section class="block">
+          <h2 class="section-title">Featured Work <span class="rule"></span></h2>
+          <ol class="timeline">
+            <li>
+              <div class="tl-rail"><span class="node"></span><span class="line"></span></div>
+              <div class="tl-content">
+                <h3><a href="https://github.com/aspartic-gthb/FindInCampus" target="_blank"
+                    rel="noreferrer">FindInCampus</a></h3>
+                <p class="tl-role">An AI-driven MERN stack lost and found platform. Integrates Gemini AI for image-based
+                  semantic item matching and real-time statistics tracking.</p>
+                <dl class="tl-meta">
+                  <div>
+                    <dt>Type</dt>
+                    <dd>Web Platform</dd>
+                  </div>
+                  <div>
+                    <dt>Year</dt>
+                    <dd>2026</dd>
+                  </div>
+                </dl>
+                <ul class="tl-tags">
+                  <li>MongoDB</li>
+                  <li>Express</li>
+                  <li>React</li>
+                  <li>Node.js</li>
+                  <li>Gemini AI</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="tl-rail"><span class="node"></span></div>
+              <div class="tl-content">
+                <h3><a href="https://github.com/aspartic-gthb/Resourcely_Android_App" target="_blank"
+                    rel="noreferrer">Resourcely</a></h3>
+                <p class="tl-role">A cross-platform React Native app featuring cloud-synced user profiles and secure
+                  Firebase Authentication, migrated from an earlier Kotlin/SQLite codebase.</p>
+                <dl class="tl-meta">
+                  <div>
+                    <dt>Type</dt>
+                    <dd>Mobile App</dd>
+                  </div>
+                  <div>
+                    <dt>Year</dt>
+                    <dd>2026</dd>
+                  </div>
+                </dl>
+                <ul class="tl-tags">
+                  <li>React Native</li>
+                  <li>Expo</li>
+                  <li>Firebase</li>
+                  <li>Firestore</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <!-- Signoff: Credits and copyright -->
+        <footer class="footer">
+          <p>© 2026 AnirudhS aka aspartic</p>
+          <p>Built with love, LLMs and Coffee</p>
+        </footer>
+
+        <div aria-hidden class="band-grid bottom"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Command Center: For the power users -->
+  <div id="commandPalette" class="cm-overlay" style="display: none;">
+    <div class="cm-modal">
+      <div class="cm-header">
+        <input type="text" id="cmInput" placeholder="Type a command or search..." autocomplete="off">
+      </div>
+      <div class="cm-list" id="cmList">
+        <div class="cm-item" data-action="home">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          <span>Go to Home</span>
+          <kbd>H</kbd>
+        </div>
+        <div class="cm-item" data-action="projects">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+          <span>View Projects</span>
+          <kbd>P</kbd>
+        </div>
+        <div class="cm-item" data-action="theme">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5" />
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+          <span>Toggle Theme</span>
+          <kbd>T</kbd>
+        </div>
+        <div class="cm-item" data-action="copy-email">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+          <span>Copy Email</span>
+          <kbd>E</kbd>
+        </div>
+      </div>
+      <div class="cm-footer">
+        <span><kbd>↑↓</kbd> to navigate</span>
+        <span><kbd>↵</kbd> to select</span>
+        <span><kbd>esc</kbd> to close</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sleeping Companion: Keeping the vibe chill -->
+  <div class="pixel-pet" aria-label="Sleeping pixel cat" onclick="petMeow()">
+    <div id="petMeow" class="pet-meow">Meow!</div>
+    <div class="pet-body">
+      <div class="pet-tail"></div>
+      <div class="pet-ears"></div>
+      <div class="pet-eyes">
+        <div class="eye"></div>
+        <div class="eye"></div>
+      </div>
+      <div class="pet-mouth"></div>
+    </div>
+    <div class="pet-zzzs">
+      <span>z</span>
+      <span>z</span>
+      <span>z</span>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

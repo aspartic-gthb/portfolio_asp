@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anirudh Sahu</title>
+  <meta name="description" content="Anirudh Sahu — ECE student exploring machine learning and development." />
+  <meta property="og:title" content="Anirudh Sahu — ECE · ML & dev" />
+  <meta property="og:description" content="Anirudh Sahu — ECE student exploring machine learning and development." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="assets/web_logo.png" />
+</head>
+
+<body>
+  <div class="page">
+    <!-- Global Header: Navigation and Theme controls -->
+    <header class="header">
+      <div class="header-inner">
+        <a class="brand" href="/">
+          <img src="assets/as%20logo.png" alt="Logo" class="brand-logo" />
+          <span>aspartic</span>
+        </a>
+        <nav class="nav">
+          <a href="/" class="active">Home</a>
+          <a href="projects.html">Projects</a>
+        </nav>
+        <button class="cm-hint" onclick="openPalette()" aria-label="Search">
+          <span>Search...</span>
+          <kbd>Ctrl K</kbd>
+        </button>
+        <div class="header-actions">
+          <button class="icon-btn" data-theme-toggle aria-label="Toggle theme">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="shell">
+      <div aria-hidden class="side-rail left"></div>
+      <div aria-hidden class="side-rail right"></div>
+      <main class="frame">
+        <div aria-hidden class="band-grid"></div>
+
+        <!-- Hero Section: Introduces the man behind the code -->
+        <div class="profile">
+          <img class="avatar" src="assets/pp.jpg" t=" Avatar" width="128" height="128" />
+          <div>
+            <div class="profile-meta">
+              <span style="display:inline-flex; align-items:center; gap:6px;">
+                <span class="pulse-dot"></span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <span id="viewCount">12,345</span>
+              </span>
+            </div>
+            <h1>
+              Anirudh Sahu
+              <svg class="verified-badge" viewBox="0 0 24 24">
+                <path
+                  d="M12 1l2.6 2.3 3.4-.4.4 3.4L21 9l-2.6 2.7.4 3.4-3.4-.4L12 17l-2.6-2.3-3.4.4-.4-3.4L3 9l2.6-2.7-.4-3.4 3.4.4L12 1z"
+                  fill="currentColor" />
+              </svg>
+            </h1>
+            <p class="profile-tagline">ECE student · ML &amp; dev</p>
+            <p class="profile-status">
+              <span class="dot"></span>
+              Trying to turn caffeine into code · Learning, building, repeating
+            </p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- The Narrative: A quick brief on my journey and what I'm currently listening to -->
+        <section class="block">
+          <h2 class="section-title">About <span class="rule"></span></h2>
+          <ul class="about-list">
+            <li><span class="bullet"></span><span>ECE student turning caffeine into code.</span></li>
+            <li><span class="bullet"></span><span>Learning, building, and shipping at the edge of ML and dev.</span>
+            </li>
+          </ul>
+
+          <a href="#" class="spotify">
+            <img src="assets/album.jpg" alt="Album art" width="56" height="56" />
+            <div class="spotify-meta">
+              <p class="label">Now spinning</p>
+              <p class="title">Midnight Drive</p>
+              <p class="sub">The Placeholders · Side B</p>
+            </div>
+            <div class="spotify-bars" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <svg viewBox="0 0 24 24" aria-hidden>
+              <path
+                d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.6 14.4a.7.7 0 0 1-.96.23c-2.62-1.6-5.92-1.96-9.81-1.07a.7.7 0 1 1-.31-1.36c4.25-.97 7.9-.56 10.84 1.24.33.2.43.64.24.96zm1.23-2.74a.87.87 0 0 1-1.2.29c-3-1.84-7.58-2.38-11.13-1.3a.87.87 0 1 1-.5-1.66c4.06-1.23 9.1-.63 12.55 1.48.4.25.53.78.28 1.19zm.1-2.85c-3.6-2.14-9.55-2.34-13-1.29a1.04 1.04 0 1 1-.6-2c3.97-1.2 10.55-.96 14.7 1.5a1.04 1.04 0 1 1-1.1 1.79z" />
+            </svg>
+          </a>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Digital Footprint: Where to find me on the web -->
+        <section class="block">
+          <h2 class="section-title">Connect <span class="rule"></span></h2>
+          <div class="chips">
+            <a class="chip" href="https://github.com/aspartic-gthb" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.04c-3.2.7-3.87-1.37-3.87-1.37-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.27-5.24-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.36-5.25 5.65.41.36.78 1.06.78 2.14v3.18c0 .31.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z" />
+              </svg>
+              GitHub
+            </a>
+            <a class="chip" href="https://x.com/Aspartic2314" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M22 5.92c-.74.33-1.54.55-2.36.65a4.13 4.13 0 0 0 1.81-2.27 8.26 8.26 0 0 1-2.6.99 4.1 4.1 0 0 0-7 3.74A11.65 11.65 0 0 1 3.39 4.6a4.1 4.1 0 0 0 1.27 5.48 4.07 4.07 0 0 1-1.86-.51v.05a4.11 4.11 0 0 0 3.29 4.03 4.1 4.1 0 0 1-1.85.07 4.11 4.11 0 0 0 3.83 2.85A8.23 8.23 0 0 1 2 18.29 11.62 11.62 0 0 0 8.29 20c7.55 0 11.68-6.26 11.68-11.69v-.53A8.36 8.36 0 0 0 22 5.92z" />
+              </svg>
+              Twitter
+            </a>
+            <a class="chip" href="mailto:anirudhsahu6001@gmail.com" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16v16H4z" />
+                <path d="M22 6l-10 7L2 6" />
+              </svg>
+              Mail
+            </a>
+            <a class="chip" href="https://www.instagram.com/asp_artic" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 4h16a4 4 0 0 1 4 4v12H6a4 4 0 0 1-4-4V4z" />
+                <path d="M2 4v12a4 4 0 0 0 4 4" />
+                <line x1="8" y1="8" x2="16" y2="8" />
+                <line x1="8" y1="12" x2="16" y2="12" />
+              </svg>
+              Instagram
+            </a>
+            <a class="chip" href="https://drive.google.com/file/d/1nQBybvVzQ36ZllzWKMCyJ9vp54wuCQe9/view?usp=sharing"
+              target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <path d="M14 2v6h6" />
+              </svg>
+              Resume
+            </a>
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Proof of Work: Real-time look at my GitHub activity -->
+        <section class="block">
+          <h2 class="section-title">GitHub Activity <span class="rule"></span></h2>
+          <div class="heat-card">
+            <div class="heat-head">
+              <span id="heatTotal">Contributions in the last year</span>
+              <span id="heatStreak" style="display:inline-flex; align-items:center; gap:4px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2s4 4 4 8a4 4 0 1 1-8 0c0-2 1-4 4-8z" />
+                </svg>
+                Calculating streak...
+              </span>
+            </div>
+            <div class="heat-scroll">
+              <div class="heat-row">
+                <div class="heat-days"><span>Mon</span><span>Wed</span><span>Fri</span></div>
+                <div class="heat-grid">
+                  <div class="heat-months" id="heatMonths"></div>
+                  <div class="heat-cells" id="heatCells"></div>
+                </div>
+              </div>
+            </div>
+            <div class="heat-legend">
+              <span>Less</span>
+              <span class="swatch h0"></span>
+              <span class="swatch h1"></span>
+              <span class="swatch h2"></span>
+              <span class="swatch h3"></span>
+              <span class="swatch h4"></span>
+              <span>More</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- The Grind: Professional milestones and competitive wins -->
+        <section class="block">
+          <h2 class="section-title">Experience <span class="rule"></span></h2>
+          <ol class="timeline">
+            <li>
+              <div class="tl-rail"><span class="node"></span><span class="line"></span></div>
+              <div class="tl-content">
+                <h3>ISRO's IROC-U 2026 Challenge</h3>
+                <p class="tl-role">Probationary Team Member (Electronics Domain)</p>
+                <dl class="tl-meta">
+                  <div>
+                    <dt>Team</dt>
+                    <dd>NITS-Yantrarnav</dd>
+                  </div>
+                  <div>
+                    <dt>Type</dt>
+                    <dd>Competition</dd>
+                  </div>
+                </dl>
+                <ul class="tl-tags">
+                  <li>Electronics</li>
+                  <li>Space Tech</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="tl-rail"><span class="node"></span></div>
+              <div class="tl-content">
+                <h3>Advanced Drone Technology Workshop</h3>
+                <p class="tl-role">Trainee</p>
+                <dl class="tl-meta">
+                  <div>
+                    <dt>Institution</dt>
+                    <dd>India Space Academy</dd>
+                  </div>
+                  <div>
+                    <dt>Topic</dt>
+                    <dd>Drone Components & Flight</dd>
+                  </div>
+                </dl>
+                <ul class="tl-tags">
+                  <li>Drones</li>
+                  <li>Aviation</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Roots: My academic foundation -->
+        <section class="block">
+          <h2 class="section-title">Education <span class="rule"></span></h2>
+          <ol class="timeline">
+            <li>
+              <div class="tl-rail"><span class="node"></span><span class="line"></span></div>
+              <div class="tl-content">
+                <h3>National Institute Of Technology Silchar</h3>
+                <p class="tl-role">B.Tech · Electronics &amp; Communication Engineering</p>
+                <p class="tl-period">SGPA: 7.32/10.0</p>
+              </div>
+            </li>
+            <li>
+              <div class="tl-rail"><span class="node"></span></div>
+              <div class="tl-content">
+                <h3>Purna Vikash Central School</h3>
+                <p class="tl-role">11th - 12th · Higher Secondary Education</p>
+                <p class="tl-period">Percentage: 84%</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Words to Live By: A bit of inspiration -->
+        <section class="quote-block">
+          <blockquote class="quote">
+            Discipline is choosing between what you want now and what you want most.
+            <footer>— Abraham Lincoln</footer>
+          </blockquote>
+        </section>
+
+        <!-- Signoff: Credits and copyright -->
+        <footer class="footer">
+          <p>© 2026 AnirudhS aka aspartic</p>
+          <p>Built with love, LLMs and Coffee</p>
+        </footer>
+
+        <div aria-hidden class="band-grid bottom"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Command Center: Power-user navigation for those who like shortcuts -->
+  <div id="commandPalette" class="cm-overlay" style="display: none;">
+    <div class="cm-modal">
+      <div class="cm-header">
+        <input type="text" id="cmInput" placeholder="Type a command or search..." autocomplete="off">
+      </div>
+      <div class="cm-list" id="cmList">
+        <div class="cm-item" data-action="home">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          <span>Go to Home</span>
+          <kbd>H</kbd>
+        </div>
+        <div class="cm-item" data-action="projects">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+          <span>View Projects</span>
+          <kbd>P</kbd>
+        </div>
+        <div class="cm-item" data-action="theme">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5" />
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+          <span>Toggle Theme</span>
+          <kbd>T</kbd>
+        </div>
+        <div class="cm-item" data-action="copy-email">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+          <span>Copy Email</span>
+          <kbd>E</kbd>
+        </div>
+      </div>
+      <div class="cm-footer">
+        <span><kbd>↑↓</kbd> to navigate</span>
+        <span><kbd>↵</kbd> to select</span>
+        <span><kbd>esc</kbd> to close</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Office Guard: A sleepy pixel companion to keep the page cozy -->
+  <div class="pixel-pet" aria-label="Sleeping pixel cat" onclick="petMeow()">
+    <div id="petMeow" class="pet-meow">Meow!</div>
+    <div class="pet-body">
+      <div class="pet-tail"></div>
+      <div class="pet-ears"></div>
+      <div class="pet-eyes">
+        <div class="eye"></div>
+        <div class="eye"></div>
+      </div>
+      <div class="pet-mouth"></div>
+    </div>
+    <div class="pet-zzzs">
+      <span>z</span>
+      <span>z</span>
+      <span>z</span>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
