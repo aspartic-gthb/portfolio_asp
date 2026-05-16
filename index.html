@@ -25,6 +25,8 @@
         <nav class="nav">
           <a href="/" class="active">Home</a>
           <a href="projects.html">Projects</a>
+          <a href="blogs.html">Blogs</a>
+          <a href="research.html">Research</a>
         </nav>
         <button class="cm-hint" onclick="openPalette()" aria-label="Search">
           <span>Search...</span>
@@ -155,6 +157,66 @@
         </section>
 
         <div class="divider"></div>
+        
+        <!-- Tech Stack: The tools of my trade -->
+        <section class="block">
+          <h2 class="section-title">Tech Stack <span class="rule"></span></h2>
+          <div class="tech-container">
+            <div class="tech-category">
+              <h3>Frontend</h3>
+              <div class="tech-items">
+                <div class="tech-item" title="React & React Native">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <span>React</span>
+                </div>
+                <div class="tech-item" title="JavaScript / TypeScript">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                  <span>JS/TS</span>
+                </div>
+                <div class="tech-item" title="Modern CSS">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  <span>CSS3</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="tech-category">
+              <h3>Backend</h3>
+              <div class="tech-items">
+                <div class="tech-item" title="Node.js & Express">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  <span>Node.js</span>
+                </div>
+                <div class="tech-item" title="Python & FastAPI">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  <span>Python</span>
+                </div>
+                <div class="tech-item" title="Databases (NoSQL & SQL)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                  <span>Databases</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="tech-category">
+              <h3>AI & Systems</h3>
+              <div class="tech-items">
+                <div class="tech-item" title="Gemini & LLMs">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2s-8 3-8 10c0 5 4 10 8 10s8-5 8-10c0-7-8-10-8-10z"/><path d="M12 12v.01"/><path d="M12 16v.01"/><path d="M12 8v.01"/></svg>
+                  <span>AI/NLP</span>
+                </div>
+                <div class="tech-item" title="Arduino & Embedded">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 10h4M7 14h4M13 10h4M13 14h4"/></svg>
+                  <span>Robotics</span>
+                </div>
+                <div class="tech-item" title="C++">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                  <span>C++</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <!-- Proof of Work: Real-time look at my GitHub activity -->
         <section class="block">
@@ -311,6 +373,21 @@
           <span>View Projects</span>
           <kbd>P</kbd>
         </div>
+        <div class="cm-item" data-action="blogs">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+          <span>Read Blogs</span>
+          <kbd>B</kbd>
+        </div>
+        <div class="cm-item" data-action="research">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+          </svg>
+          <span>Research Papers</span>
+          <kbd>R</kbd>
+        </div>
         <div class="cm-item" data-action="theme">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5" />
@@ -327,6 +404,21 @@
           </svg>
           <span>Copy Email</span>
           <kbd>E</kbd>
+        </div>
+        <div class="cm-item" data-action="resume">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <path d="M14 2v6h6" />
+          </svg>
+          <span>View Resume</span>
+          <kbd>M</kbd>
+        </div>
+        <div class="cm-item" data-action="top">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7" />
+          </svg>
+          <span>Back to Top</span>
+          <kbd>U</kbd>
         </div>
       </div>
       <div class="cm-footer">

@@ -119,12 +119,12 @@
       try {
         const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastFmUser}&api_key=${lastFmKey}&format=json&limit=1`);
         const data = await res.json();
-        
+
         if (!data.recenttracks || !data.recenttracks.track[0]) return;
-        
+
         const track = data.recenttracks.track[0];
         const isPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
-        
+
         const titleEl = spotifyEl.querySelector('.title');
         const subEl = spotifyEl.querySelector('.sub');
         const imgEl = spotifyEl.querySelector('img');
@@ -134,7 +134,7 @@
         if (titleEl) titleEl.textContent = track.name;
         if (subEl) subEl.textContent = `${track.artist['#text']} — ${track.album['#text']}`;
         if (imgEl) imgEl.src = track.image[2]['#text'] || 'assets/album.jpg';
-        
+
         if (isPlaying) {
           if (labelEl) labelEl.textContent = "Now spinning";
           if (barsEl) barsEl.style.display = 'flex';
@@ -167,93 +167,152 @@
       if (current >= totalViews) clearInterval(interval);
     }, 50);
   }
-  // Command Center Logic: Power-user navigation for keyboard enthusiasts
+    // Command Center Logic: Power-user navigation with real-time filtering
   const palette = document.getElementById('commandPalette');
   const cmInput = document.getElementById('cmInput');
-  const cmItems = Array.from(document.querySelectorAll('.cm-item'));
+  const cmList = document.getElementById('cmList');
   let activeIndex = 0;
+  let visibleItems = [];
+
+  const getVisibleItems = () => Array.from(document.querySelectorAll('.cm-item')).filter(item => item.style.display !== 'none');
+
+  const updateActiveItem = () => {
+    visibleItems = getVisibleItems();
+    visibleItems.forEach((item, i) => {
+      item.classList.toggle('active', i === activeIndex);
+      if (i === activeIndex) item.scrollIntoView({ block: 'nearest' });
+    });
+  };
 
   window.openPalette = () => {
+    if (!palette) return;
     palette.style.display = 'flex';
     cmInput.focus();
+    activeIndex = 0;
+    // Reset filtering
+    document.querySelectorAll('.cm-item').forEach(item => item.style.display = 'flex');
+    cmInput.value = '';
     updateActiveItem();
   };
 
   const closePalette = () => {
-    palette.style.display = 'none';
-    cmInput.value = '';
-  };
-
-  const updateActiveItem = () => {
-    cmItems.forEach((item, i) => {
-      item.classList.toggle('active', i === activeIndex);
-    });
+    if (palette) palette.style.display = 'none';
   };
 
   const handleAction = (action) => {
+    if (!action) return;
     switch (action) {
       case 'home': window.location.href = 'index.html'; break;
       case 'projects': window.location.href = 'projects.html'; break;
+      case 'blogs': window.location.href = 'blogs.html'; break;
+      case 'research': window.location.href = 'research.html'; break;
       case 'theme': 
         const themeBtn = document.querySelector('[data-theme-toggle]');
         if (themeBtn) themeBtn.click();
         break;
+      case 'resume':
+        window.open('https://drive.google.com/file/d/1nQBybvVzQ36ZllzWKMCyJ9vp54wuCQe9/view?usp=sharing', '_blank');
+        break;
+      case 'top':
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        break;
       case 'copy-email': 
-        navigator.clipboard.writeText('hello@anirudhsahu.tech');
-        const originalText = document.querySelector('[data-action="copy-email"] span').textContent;
-        document.querySelector('[data-action="copy-email"] span').textContent = 'Copied!';
-        setTimeout(() => {
-          document.querySelector('[data-action="copy-email"] span').textContent = originalText;
-        }, 2000);
-        return; // Don't close immediately so they see "Copied!"
+        navigator.clipboard.writeText('anirudhsahu6001@gmail.com');
+        const emailItem = document.querySelector('[data-action="copy-email"] span');
+        if (emailItem) {
+          const originalText = emailItem.textContent;
+          emailItem.textContent = 'Copied!';
+          setTimeout(() => { emailItem.textContent = originalText; }, 2000);
+        }
+        return; 
     }
     closePalette();
   };
 
+  // Filter items as you type
+  if (cmInput) {
+    cmInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      const allItems = document.querySelectorAll('.cm-item');
+      allItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(term) ? 'flex' : 'none';
+      });
+      activeIndex = 0;
+      updateActiveItem();
+    });
+  }
+
   document.addEventListener('keydown', (e) => {
+    // Open palette
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
       e.preventDefault();
       openPalette();
+      return;
     }
-    if (palette.style.display === 'flex') {
+
+    if (palette && palette.style.display === 'flex') {
+      visibleItems = getVisibleItems();
+
       if (e.key === 'Escape') closePalette();
+      
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        activeIndex = (activeIndex + 1) % cmItems.length;
+        activeIndex = (activeIndex + 1) % visibleItems.length;
         updateActiveItem();
       }
+      
       if (e.key === 'ArrowUp') {
         e.preventDefault();
-        activeIndex = (activeIndex - 1 + cmItems.length) % cmItems.length;
+        activeIndex = (activeIndex - 1 + visibleItems.length) % visibleItems.length;
         updateActiveItem();
       }
-      if (e.key === 'Enter') {
-        const action = cmItems[activeIndex].getAttribute('data-action');
+      
+      if (e.key === 'Enter' && visibleItems[activeIndex]) {
+        const action = visibleItems[activeIndex].getAttribute('data-action');
         handleAction(action);
       }
-      // Quick shortcuts
+
+      // Quick shortcuts (only when not searching)
       if (!cmInput.value) {
-        if (e.key.toLowerCase() === 'h') handleAction('home');
-        if (e.key.toLowerCase() === 'p') handleAction('projects');
-        if (e.key.toLowerCase() === 't') handleAction('theme');
-        if (e.key.toLowerCase() === 'e') handleAction('copy-email');
+        const key = e.key.toLowerCase();
+        const shortcuts = {
+          'h': 'home', 'p': 'projects', 'b': 'blogs', 'r': 'research',
+          't': 'theme', 'e': 'copy-email', 'u': 'top', 'm': 'resume'
+        };
+        if (shortcuts[key]) {
+          e.preventDefault();
+          handleAction(shortcuts[key]);
+        }
       }
     }
   });
 
-  palette.addEventListener('click', (e) => {
-    if (e.target === palette) closePalette();
-  });
+  if (palette) {
+    palette.addEventListener('click', (e) => {
+      if (e.target === palette) closePalette();
+    });
+  }
 
-  cmItems.forEach((item, i) => {
-    item.addEventListener('mouseenter', () => {
-      activeIndex = i;
-      updateActiveItem();
+  // Delegate clicks to items (works even after filtering)
+  if (cmList) {
+    cmList.addEventListener('click', (e) => {
+      const item = e.target.closest('.cm-item');
+      if (item) handleAction(item.getAttribute('data-action'));
     });
-    item.addEventListener('click', () => {
-      handleAction(item.getAttribute('data-action'));
+    
+    cmList.addEventListener('mouseover', (e) => {
+      const item = e.target.closest('.cm-item');
+      if (item) {
+        visibleItems = getVisibleItems();
+        const idx = visibleItems.indexOf(item);
+        if (idx !== -1) {
+          activeIndex = idx;
+          updateActiveItem();
+        }
+      }
     });
-  });
+  }
 
   // Pet Interaction: Making the office cat a little more responsive
   window.petMeow = () => {
