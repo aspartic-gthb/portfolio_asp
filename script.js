@@ -151,21 +151,39 @@
     setInterval(updateSpotify, 30000); // Update every 30s
   }
 
-  // Visitor Counter: A little simulation of the traffic I'm getting
-  const launchDate = new Date('2026-01-01');
-  const now = new Date();
-  const diffDays = Math.floor((now - launchDate) / (1000 * 60 * 60 * 24));
-  const baseViews = 12450;
-  const totalViews = baseViews + (diffDays * 12);
-
+  // Visitor Counter: Real-time traffic tracking via CounterAPI
   const viewCountEl = document.getElementById('viewCount');
   if (viewCountEl) {
-    let current = totalViews - 20;
-    const interval = setInterval(() => {
-      current++;
-      viewCountEl.textContent = current.toLocaleString();
-      if (current >= totalViews) clearInterval(interval);
-    }, 50);
+    const updateCounter = async () => {
+      try {
+        const namespace = "aspartic-portfolio";
+        const key = "main-visits";
+        // Up increments the counter and returns the new value
+        const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
+        const data = await response.json();
+        
+        if (data && data.count) {
+          const totalViews = data.count;
+          // Small animation effect from current-20 to total
+          let current = Math.max(0, totalViews - 20);
+          const interval = setInterval(() => {
+            current++;
+            viewCountEl.textContent = current.toLocaleString();
+            if (current >= totalViews) clearInterval(interval);
+          }, 50);
+        }
+      } catch (err) {
+        console.error("CounterAPI error:", err);
+        // Fallback to simulation if API fails so the UI doesn't look broken
+        const launchDate = new Date('2026-01-01');
+        const now = new Date();
+        const diffDays = Math.floor((now - launchDate) / (1000 * 60 * 60 * 24));
+        const baseViews = 12450;
+        const totalViews = baseViews + (diffDays * 12);
+        viewCountEl.textContent = totalViews.toLocaleString();
+      }
+    };
+    updateCounter();
   }
     // Command Center Logic: Power-user navigation with real-time filtering
   const palette = document.getElementById('commandPalette');
