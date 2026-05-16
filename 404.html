@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 - Not Found</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="assets/web_logo.png" />
+</head>
+
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="header-inner">
+        <a class="brand" href="./">
+          <img src="assets/as%20logo.png" alt="Logo" class="brand-logo" />
+          <span>aspartic</span>
+        </a>
+        <nav class="nav">
+          <a href="./">Home</a>
+          <a href="projects.html">Projects</a>
+          <a href="blogs.html">Blogs</a>
+          <a href="research.html">Research</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="shell">
+      <div aria-hidden class="side-rail left"></div>
+      <div aria-hidden class="side-rail right"></div>
+      <main class="frame">
+        <div aria-hidden class="band-grid"></div>
+
+        <section class="block">
+          <div class="coming-soon">
+            <div class="coming-soon-icon">🛸</div>
+            <h2>404 - Page Not Found</h2>
+            <p>It seems you've drifted off into deep space. The page you're looking for doesn't exist.</p>
+            <div style="margin-top: 2rem;">
+                <a href="./" class="chip" style="font-weight: 600;">Return Home</a>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <p>© 2026 AnirudhS aka aspartic</p>
+          <p>Built with love, LLMs and Coffee</p>
+        </footer>
+
+        <div aria-hidden class="band-grid bottom"></div>
+      </main>
+    </div>
+  </div>
+
+  <div class="pixel-pet" aria-label="Sleeping pixel cat" onclick="petMeow()">
+    <div id="petMeow" class="pet-meow">Meow!</div>
+    <div class="pet-body">
+      <div class="pet-tail"></div>
+      <div class="pet-ears"></div>
+      <div class="pet-eyes">
+        <div class="eye"></div>
+        <div class="eye"></div>
+      </div>
+      <div class="pet-mouth"></div>
+    </div>
+    <div class="pet-zzzs">
+      <span>z</span>
+      <span>z</span>
+      <span>z</span>
+    </div>
+  </div>
+
+  <script>
+    // Minimal script for theme and pet on 404 page
+    (function () {
+      const root = document.documentElement;
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) root.classList.add('dark');
+
+      window.petMeow = () => {
+        const bubble = document.getElementById('petMeow');
+        if (bubble) {
+          bubble.style.display = 'block';
+          bubble.style.animation = 'none';
+          bubble.offsetHeight;
+          bubble.style.animation = 'meow-fade 2s forwards';
+          setTimeout(() => { bubble.style.display = 'none'; }, 2000);
+        }
+      };
+    })();
+  </script>
+</body>
+
+</html>

@@ -114,7 +114,7 @@
   const lastFmKey = typeof CONFIG !== 'undefined' ? CONFIG.LASTFM_API_KEY : "";
 
   const spotifyEl = document.querySelector('.spotify');
-  if (lastFmUser && spotifyEl) {
+  if (lastFmUser && lastFmKey && spotifyEl) {
     const updateSpotify = async () => {
       try {
         const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastFmUser}&api_key=${lastFmKey}&format=json&limit=1`);
@@ -202,7 +202,7 @@
   const handleAction = (action) => {
     if (!action) return;
     switch (action) {
-      case 'home': window.location.href = 'index.html'; break;
+      case 'home': window.location.href = './'; break;
       case 'projects': window.location.href = 'projects.html'; break;
       case 'blogs': window.location.href = 'blogs.html'; break;
       case 'research': window.location.href = 'research.html'; break;
