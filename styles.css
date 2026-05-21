@@ -195,7 +195,7 @@ main.frame { border-left: 1px solid var(--border); border-right: 1px solid var(-
 }
 .dot { height: 0.375rem; width: 0.375rem; border-radius: 9999px; background: var(--muted-foreground); }
 
-/* Content Blocks: Reusable section containers */
+/* Content Blocks */
 section.block { padding: 2.5rem 1.5rem; }
 @media (min-width: 640px) { section.block { padding: 2.5rem 2rem; } }
 .section-title {
@@ -212,7 +212,7 @@ section.block { padding: 2.5rem 1.5rem; }
   margin-top: 0.5rem; height: 0.375rem; width: 0.375rem; border-radius: 9999px; background: var(--foreground); flex-shrink: 0;
 }
 
-/* Tune In: The dynamic music card */
+/* Spotify Card */
 .spotify {
   margin-top: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
   border: 1px dashed var(--border); border-radius: 0.5rem;
@@ -295,7 +295,7 @@ section.block { padding: 2.5rem 1.5rem; }
 }
 .heat-legend span.swatch { height: 0.625rem; width: 0.625rem; border-radius: 2px; display: inline-block; outline: 1px solid var(--heat-outline); outline-offset: -1px; }
 
-/* The Journey: Timeline-based experience and education */
+/* Timeline */
 .timeline { display: flex; flex-direction: column; gap: 2rem; }
 .timeline li { display: grid; grid-template-columns: auto 1fr; gap: 1rem; }
 .tl-rail { display: flex; flex-direction: column; align-items: center; }
@@ -339,7 +339,7 @@ section.block { padding: 2.5rem 1.5rem; }
   margin-top: 0.5rem; font-size: 0.75rem; font-style: normal; color: var(--muted-foreground);
 }
 section.quote-block { padding: 3rem 1.5rem; }
-/* Command Center: The overlay modal for shortcuts */
+/* Command Palette */
 .cm-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.4);
   backdrop-filter: blur(8px); z-index: 1000;
@@ -586,16 +586,86 @@ section.quote-block { padding: 3rem 1.5rem; }
   transform: translateY(-2px);
   background: var(--accent);
 }
-.tech-item svg {
+.tech-item svg, .tech-logo {
   width: 1.25rem;
   height: 1.25rem;
   color: var(--muted-foreground);
-  transition: color 0.2s;
+  transition: all 0.2s;
+}
+.tech-logo {
+  filter: grayscale(100%);
+  opacity: 0.7;
 }
 .tech-item:hover svg {
   color: var(--foreground);
 }
+.tech-item:hover .tech-logo {
+  filter: grayscale(0%);
+  opacity: 1;
+}
 .tech-item span {
   font-size: 0.875rem;
   font-weight: 500;
+}
+
+/* Added features: Animations, Mobile Nav, and CTA */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--foreground); color: var(--background);
+  padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600;
+  transition: all 0.2s; border: 1px solid transparent;
+}
+.btn-primary:hover {
+  background: transparent; color: var(--foreground); border-color: var(--foreground);
+  transform: translateY(-2px);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Nav Toggle Button (hide by default on desktop) */
+.mobile-menu-btn { display: none; }
+@media (max-width: 639px) {
+  .mobile-menu-btn { display: flex; align-items: center; justify-content: center; height: 2rem; width: 2rem; color: var(--muted-foreground); border-radius: 0.375rem; background: transparent; border: none; cursor: pointer; }
+  .mobile-menu-btn:hover { background: var(--muted); color: var(--foreground); }
+  .nav { 
+    display: none; position: absolute; top: 100%; left: 0; right: 0; 
+    background: var(--background); border-bottom: 1px solid var(--border);
+    flex-direction: column; padding: 1rem; gap: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  }
+  .nav.open { display: flex; }
+}
+
+/* Brand Colors on Tech Stack Hover (removed in favor of native simpleicons colors) */
+
+/* Custom Terminal Cursor */
+@media (hover: none) {
+  .custom-cursor { display: none; }
+}
+@media (hover: hover) {
+  body, a, button, .cm-hint, .pixel-pet, .tech-item { cursor: none !important; }
+  .custom-cursor {
+    position: fixed; top: 0; left: 0;
+    width: 20px; height: 20px;
+    pointer-events: none; z-index: 9999;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.25rem; font-weight: bold;
+    color: var(--foreground);
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), color 0.15s ease;
+  }
+  .custom-cursor::before { content: '>'; }
+  .custom-cursor.hovering {
+    transform: translate(-50%, -50%) scale(1.5);
+    color: #1DB954; /* Highlight green */
+  }
 }

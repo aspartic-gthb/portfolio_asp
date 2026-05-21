@@ -1,4 +1,4 @@
-// Theme Management: Let there be light (or dark) - remembering your preference
+// Theme toggle: Saving your visual preference
 (function () {
   const root = document.documentElement;
   const stored = localStorage.getItem('theme');
@@ -12,7 +12,7 @@
     });
   });
 
-  // GitHub Heatmap: Fetching my recent activity to show the grind
+  // GitHub Heatmap: Fetching my recent coding activity
   const cells = document.getElementById('heatCells');
   const months = document.getElementById('heatMonths');
   if (cells && months) {
@@ -164,7 +164,7 @@
         
         if (data && data.count) {
           const totalViews = data.count;
-          // Small animation effect from current-20 to total
+          // Counting up animation for the visitor tally
           let current = Math.max(0, totalViews - 20);
           const interval = setInterval(() => {
             current++;
@@ -185,7 +185,29 @@
     };
     updateCounter();
   }
-    // Command Center Logic: Power-user navigation with real-time filtering
+
+  // Scroll Animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('section.block').forEach((el) => {
+    el.classList.add('fade-in');
+    observer.observe(el);
+  });
+
+  // Mobile Menu Toggle
+  window.toggleMobileMenu = () => {
+    const nav = document.getElementById('mainNav');
+    if (nav) nav.classList.toggle('open');
+  };
+
+  // Command palette logic
   const palette = document.getElementById('commandPalette');
   const cmInput = document.getElementById('cmInput');
   const cmList = document.getElementById('cmList');
@@ -332,7 +354,7 @@
     });
   }
 
-  // Pet Interaction: Making the office cat a little more responsive
+  // Pixel pet click interaction
   window.petMeow = () => {
     const bubble = document.getElementById('petMeow');
     if (bubble) {
@@ -343,4 +365,23 @@
       setTimeout(() => { bubble.style.display = 'none'; }, 2000);
     }
   };
+
+  // Custom Terminal Cursor Logic
+  const cursor = document.createElement('div');
+  cursor.className = 'custom-cursor';
+  document.body.appendChild(cursor);
+
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  const addHoverEffects = () => {
+    const interactables = document.querySelectorAll('a, button, .cm-hint, .pixel-pet, .avatar, .tech-item');
+    interactables.forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+  };
+  addHoverEffects();
 })();

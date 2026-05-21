@@ -23,7 +23,7 @@
           <img src="assets/as%20logo.png" alt="Logo" class="brand-logo" />
           <span>aspartic</span>
         </a>
-        <nav class="nav">
+        <nav class="nav" id="mainNav">
           <a href="./" class="active">Home</a>
           <a href="projects.html">Projects</a>
           <a href="blogs.html">Blogs</a>
@@ -34,6 +34,13 @@
           <kbd>Ctrl K</kbd>
         </button>
         <div class="header-actions">
+          <button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
           <button class="icon-btn" data-theme-toggle aria-label="Toggle theme">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -52,7 +59,7 @@
       <main class="frame">
         <div aria-hidden class="band-grid"></div>
 
-        <!-- Hero Section: Introduces the man behind the code -->
+        <!-- Hero Section -->
         <div class="profile">
           <img class="avatar" src="assets/pp.jpg" alt="Avatar" width="128" height="128" />
           <div>
@@ -84,7 +91,7 @@
 
         <div class="divider"></div>
 
-        <!-- The Narrative: A quick brief on my journey and what I'm currently listening to -->
+        <!-- About Section -->
         <section class="block">
           <h2 class="section-title">About <span class="rule"></span></h2>
           <ul class="about-list">
@@ -158,8 +165,8 @@
         </section>
 
         <div class="divider"></div>
-        
-        <!-- Tech Stack: The tools of my trade -->
+
+        <!-- Tech Stack -->
         <section class="block">
           <h2 class="section-title">Tech Stack <span class="rule"></span></h2>
           <div class="tech-container">
@@ -167,34 +174,38 @@
               <h3>Frontend</h3>
               <div class="tech-items">
                 <div class="tech-item" title="React & React Native">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" class="tech-logo" />
                   <span>React</span>
                 </div>
                 <div class="tech-item" title="JavaScript / TypeScript">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                  <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JS" class="tech-logo" />
                   <span>JS/TS</span>
                 </div>
                 <div class="tech-item" title="Modern CSS">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  <img src="https://cdn.simpleicons.org/css/1572B6" alt="CSS" class="tech-logo" />
                   <span>CSS3</span>
                 </div>
               </div>
             </div>
-            
+
             <div class="tech-category">
               <h3>Backend</h3>
               <div class="tech-items">
                 <div class="tech-item" title="Node.js & Express">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  <img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node.js" class="tech-logo" />
                   <span>Node.js</span>
                 </div>
                 <div class="tech-item" title="Python & FastAPI">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" class="tech-logo" />
                   <span>Python</span>
                 </div>
                 <div class="tech-item" title="Databases (NoSQL & SQL)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                  <img src="https://cdn.simpleicons.org/mongodb/47A248" alt="Databases" class="tech-logo" />
                   <span>Databases</span>
+                </div>
+                <div class="tech-item" title="Java">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" class="tech-logo" />
+                  <span>Java</span>
                 </div>
               </div>
             </div>
@@ -203,15 +214,15 @@
               <h3>AI & Systems</h3>
               <div class="tech-items">
                 <div class="tech-item" title="Gemini & LLMs">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2s-8 3-8 10c0 5 4 10 8 10s8-5 8-10c0-7-8-10-8-10z"/><path d="M12 12v.01"/><path d="M12 16v.01"/><path d="M12 8v.01"/></svg>
+                  <img src="https://cdn.simpleicons.org/googlegemini/8E75B2" alt="AI" class="tech-logo" />
                   <span>AI/NLP</span>
                 </div>
                 <div class="tech-item" title="Arduino & Embedded">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 10h4M7 14h4M13 10h4M13 14h4"/></svg>
+                  <img src="https://cdn.simpleicons.org/arduino/00979D" alt="Arduino" class="tech-logo" />
                   <span>Robotics</span>
                 </div>
                 <div class="tech-item" title="C++">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                  <img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C++" class="tech-logo" />
                   <span>C++</span>
                 </div>
               </div>
@@ -219,7 +230,7 @@
           </div>
         </section>
 
-        <!-- Proof of Work: Real-time look at my GitHub activity -->
+        <!-- GitHub Activity -->
         <section class="block">
           <h2 class="section-title">GitHub Activity <span class="rule"></span></h2>
           <div class="heat-card">
@@ -255,10 +266,27 @@
 
         <div class="divider"></div>
 
-        <!-- The Grind: Professional milestones and competitive wins -->
+        <!-- Experience Timeline -->
         <section class="block">
           <h2 class="section-title">Experience <span class="rule"></span></h2>
           <ol class="timeline">
+            <li>
+              <div class="tl-rail"><span class="node"></span><span class="line"></span></div>
+              <div class="tl-content">
+                <h3>GSSoC 2026</h3>
+                <p class="tl-role">Open Source Contributor (Ongoing)</p>
+                <dl class="tl-meta">
+                  <div>
+                    <dt>Type</dt>
+                    <dd>Open Source</dd>
+                  </div>
+                </dl>
+                <ul class="tl-tags">
+                  <li>Open Source</li>
+                  <li>Development</li>
+                </ul>
+              </div>
+            </li>
             <li>
               <div class="tl-rail"><span class="node"></span><span class="line"></span></div>
               <div class="tl-content">
@@ -315,7 +343,7 @@
               <div class="tl-content">
                 <h3>National Institute Of Technology Silchar</h3>
                 <p class="tl-role">B.Tech · Electronics &amp; Communication Engineering</p>
-                <p class="tl-period">SGPA: 7.32/10.0</p>
+                <p class="tl-period">2025 — 2029 · SGPA: 7.32/10.0</p>
               </div>
             </li>
             <li>
@@ -323,7 +351,7 @@
               <div class="tl-content">
                 <h3>Purna Vikash Central School</h3>
                 <p class="tl-role">11th - 12th · Higher Secondary Education</p>
-                <p class="tl-period">Percentage: 84%</p>
+                <p class="tl-period">2023 — 2025 · Percentage: 84%</p>
               </div>
             </li>
           </ol>
