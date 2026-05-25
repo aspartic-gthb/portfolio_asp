@@ -1,37 +1,111 @@
-# Portfolio v2 - Anirudh Sahu
+# Portfolio v2 — Anirudh Sahu (aspartic)
 
-A modern, responsive portfolio website featuring a dynamic design, GitHub activity heatmap, and a real-time "Now Playing" music status powered by Last.fm.
+Personal portfolio site: static HTML/CSS/JS, deployed to GitHub Pages. Live features include a GitHub contribution heatmap, Last.fm “now playing” card, keyboard command palette, and light/dark theme.
 
-## Features
-- **Dynamic Last.fm Widget**: Shows real-time listening activity.
-- **GitHub Activity Tracker**: Live contribution heatmap.
-- **Command Palette**: Keyboard-first navigation (Ctrl+K).
-- **Theme Support**: Adaptive light/dark modes.
-- **Interactive Elements**: Pixel-art pet and smooth micro-animations.
+For a deep dive into structure and data flow, see **[ARCHITECTURE.md](./ARCHITECTURE.md)**.
 
-## Setup
-To run this project locally and enable the Last.fm widget:
+## Tech stack
 
-1. Clone the repository.
-2. Create a `config.js` file in the root directory (you can copy `config.example.js`).
-3. Add your [Last.fm API key](https://www.last.fm/api/account/create) and username to `config.js`.
-4. Open `index.html` in your browser.
+| Piece | Choice |
+|-------|--------|
+| Frontend | Vanilla HTML5, CSS3, JavaScript (no framework) |
+| Package manager | None (no `package.json`) |
+| APIs | Last.fm, GitHub Contributions proxy, CounterAPI |
+| Fonts / icons | Google Fonts (JetBrains Mono), Simple Icons CDN |
+| Hosting | GitHub Pages |
+| CI | GitHub Actions (`deploy.yml`) |
+
+There is **no backend** in this repository. All “server” behavior is either static files or calls from the browser to public APIs.
+
+## Project structure
+
+```
+.
+├── index.html           # Home
+├── projects.html        # Project showcase
+├── blogs.html           # Blog placeholder
+├── research.html        # Research placeholder
+├── 404.html             # Not found page
+├── styles.css           # Global styles
+├── script.js            # All client-side logic
+├── config.example.js    # Copy → config.js for local dev
+├── assets/              # Images (avatar, logos, etc.)
+├── ARCHITECTURE.md      # Technical architecture notes
+└── .github/workflows/deploy.yml
+```
+
+## Local development
+
+1. Clone the repo.
+2. Copy the config template:
+   ```bash
+   cp config.example.js config.js
+   ```
+3. Edit `config.js` with your [Last.fm API key](https://www.last.fm/api/account/create) and username.
+4. Serve the folder with any static server (opening `index.html` directly works for most features; some browsers restrict `fetch` on `file://` — prefer a local server):
+
+   ```bash
+   npx --yes serve .
+   ```
+
+   Or with Python:
+
+   ```bash
+   python -m http.server 8080
+   ```
+
+5. Open `http://localhost:8080` (or the port your tool prints).
+
+Without `config.js`, the Last.fm widget stays on the placeholder text in HTML; the heatmap and theme still work.
+
+## Environment / secrets
+
+| Variable | Where | Purpose |
+|----------|--------|---------|
+| `LASTFM_API_KEY` | GitHub Actions secret | Injected into `config.js` on deploy |
+| `LASTFM_USER` | GitHub Actions secret | Last.fm username on deploy |
+
+Local: set both in `config.js` (never commit — listed in `.gitignore`).
 
 ## Deployment
-This project is configured to deploy to GitHub Pages via GitHub Actions.
 
-### GitHub Secrets
-To make the Last.fm widget work in production, you must add the following [Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) to your repository:
-- `LASTFM_API_KEY`: Your Last.fm API key.
-- `LASTFM_USER`: Your Last.fm username.
+Pushes to `main` run **Deploy to GitHub Pages**:
 
-The `deploy.yml` workflow will automatically generate the `config.js` file during the build process.
+1. CI writes `config.js` from secrets.
+2. The repo root is uploaded as the site artifact.
+3. GitHub Pages serves it.
 
-## Technologies
-- HTML5 / CSS3 (Vanilla)
-- JavaScript (Vanilla)
-- Last.fm API
-- GitHub Contributions API
+Configure secrets under **Settings → Secrets and variables → Actions** in your GitHub repo.
+
+## Features (user-facing)
+
+- **Theme** — Light/dark toggle; preference stored in `localStorage`.
+- **Command palette** — `Ctrl+K` (or `Cmd+K` on Mac): navigate, toggle theme, copy email, open resume.
+- **GitHub activity** — Contribution grid for `aspartic-gthb` (via third-party JSON API).
+- **Now playing** — Last.fm recent track (updates every 30s on the home page).
+- **Visitor counter** — CounterAPI increment on home page load (see ARCHITECTURE.md for behavior).
+- **Projects / Blogs / Research** — Multi-page navigation; blogs and research are placeholders.
+
+## Customization checklist
+
+To make this repo yours, search and replace:
+
+- Name, bio, education, experience in `index.html`
+- Project entries in `projects.html`
+- GitHub username in `script.js` (`github-contributions-api.deno.dev/...`)
+- Social links and email in `index.html` and `handleAction('copy-email')` in `script.js`
+- CounterAPI namespace/key in `script.js` (`aspartic-portfolio`, `main-visits`)
+- `config.example.js` / GitHub secrets for Last.fm
+
+## Scripts and commands
+
+There are no npm scripts. Useful commands:
+
+| Task | Command |
+|------|---------|
+| Local static server | `npx --yes serve .` |
+| Create local config | `cp config.example.js config.js` |
 
 ## License
-© 2026 Anirudh Sahu (aspartic). Built with love, LLMs and Coffee.
+
+© 2026 Anirudh Sahu (aspartic). All rights reserved unless you add a separate license file.

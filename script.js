@@ -1,4 +1,7 @@
-// Theme toggle: Saving your visual preference
+/**
+ * Portfolio client bundle — single IIFE loaded on every page that includes script.js.
+ * Guards (if element missing) let non-home pages skip heatmap / Last.fm / counter safely.
+ */
 (function () {
   const root = document.documentElement;
   const stored = localStorage.getItem('theme');
@@ -18,7 +21,7 @@
   if (cells && months) {
     const WEEKS = 53;
     const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    // Visual placeholder for when the API is taking a nap
+    // Deterministic fake levels when the API fails — looks like activity but is not real data.
     function fallbackLevel(w, d) {
       const v = (Math.sin(w * 12.9898 + d * 78.233) * 43758.5453) % 1;
       const r = Math.abs(v);
@@ -61,6 +64,7 @@
         // Create 53x7 array
         let weeks = Array.from({ length: WEEKS }, () => Array(7).fill(0));
 
+        // API returns quartile labels, not raw counts — map to CSS classes h0–h4.
         const levelMap = {
           'NONE': 0,
           'FIRST_QUARTILE': 1,
@@ -109,7 +113,7 @@
         renderHeatmap(null); // use fallback on error
       });
   }
-  // Music Status: Showing what's currently fueling my sessions via Last.fm
+  // Last.fm widget (markup uses class "spotify" for styling only — not the Spotify API).
   const lastFmUser = typeof CONFIG !== 'undefined' ? CONFIG.LASTFM_USER : "asparticlistens";
   const lastFmKey = typeof CONFIG !== 'undefined' ? CONFIG.LASTFM_API_KEY : "";
 
@@ -158,7 +162,7 @@
       try {
         const namespace = "aspartic-portfolio";
         const key = "main-visits";
-        // Up increments the counter and returns the new value
+        // /up increments on every page load — refreshes inflate the count (not a read-only metric).
         const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
         const data = await response.json();
         
