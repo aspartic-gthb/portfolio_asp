@@ -22,7 +22,7 @@
           <img src="assets/as%20logo.png" alt="Logo" class="brand-logo" />
           <span>aspartic</span>
         </a>
-        <nav class="nav">
+        <nav class="nav" id="mainNav">
           <a href="./">Home</a>
           <a href="projects.html">Projects</a>
           <a href="research.html" class="active">Research</a>
@@ -33,6 +33,14 @@
           <kbd>Ctrl K</kbd>
         </button>
         <div class="header-actions">
+          <button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
           <button class="icon-btn" data-theme-toggle aria-label="Toggle theme">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -65,7 +73,7 @@
 
         <div class="divider"></div>
 
-        <section class="block fade-in">
+        <section class="block">
           <div class="section-title">
             <span>Data Science</span>
             <div class="rule"></div>
@@ -118,7 +126,7 @@
           </div>
         </section>
 
-        <section class="block fade-in">
+        <section class="block">
           <div class="section-title">
             <span>Machine Learning</span>
             <div class="rule"></div>
@@ -186,7 +194,7 @@
           </div>
         </section>
 
-        <section class="block fade-in">
+        <section class="block">
           <div class="section-title">
             <span>Recommenders & Deep Learning</span>
             <div class="rule"></div>
