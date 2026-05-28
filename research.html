@@ -25,8 +25,8 @@
         <nav class="nav">
           <a href="./">Home</a>
           <a href="projects.html">Projects</a>
-          <a href="blogs.html">Blogs</a>
           <a href="research.html" class="active">Research</a>
+          <a href="blogs.html">Blogs</a>
         </nav>
         <button class="cm-hint" onclick="openPalette()" aria-label="Search">
           <span>Search...</span>
@@ -53,18 +53,205 @@
 
         <div class="profile" style="padding-bottom: 1.5rem;">
           <div>
-            <h1>Research</h1>
+            <h1>Research Papers</h1>
             <p class="profile-tagline">Academic papers, pre-prints, and topics I'm currently exploring.</p>
+            <p style="color: var(--muted-foreground); font-size: 0.85rem; margin-top: 0.5rem; font-style: italic;">
+              * Papers curated from the <a href="https://github.com/hurshd0/must-read-papers-for-ml" target="_blank"
+                rel="noreferrer" style="text-decoration: underline; color: inherit;">hurshd0/must-read-papers-for-ml</a>
+              repository.
+            </p>
           </div>
         </div>
 
         <div class="divider"></div>
 
         <section class="block fade-in">
-          <div class="coming-soon" style="background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 4rem 2rem; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);">
-            <div class="coming-soon-icon" style="font-size: 3.5rem; margin-bottom: 1rem;">🔬</div>
-            <h2 style="font-size: 2rem; margin-bottom: 1rem;">Coming sooner than you'd expect.</h2>
-            <p style="font-size: 1.1rem; max-width: 28rem; margin: 0 auto; line-height: 1.6;">A curated list of research papers I follow and my own academic contributions are currently being formatted for your reading pleasure.</p>
+          <div class="section-title">
+            <span>Data Science</span>
+            <div class="rule"></div>
+          </div>
+          <div class="paper-grid">
+            <a href="https://vita.had.co.nz/papers/tidy-data.pdf" target="_blank" class="paper-card">
+              <div class="paper-category">
+                📊 Pre-processing & EDA
+              </div>
+              <h3 class="paper-title">Data preprocessing - Tidy data</h3>
+              <p class="paper-desc">A foundational paper by Hadley Wickham on organizing data to facilitate analysis,
+                defining the standard for data tidying.</p>
+              <div class="paper-footer">
+                <span class="paper-link">Read PDF <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg></span>
+              </div>
+            </a>
+
+            <a href="https://projecteuclid.org/download/pdf_1/euclid.ss/1009213726" target="_blank" class="paper-card">
+              <div class="paper-category">
+                📓 General DS
+              </div>
+              <h3 class="paper-title">Statistical Modeling: The Two Cultures</h3>
+              <p class="paper-desc">Leo Breiman's classic discussion on the difference between data modeling
+                (statistics) and algorithmic modeling (machine learning).</p>
+              <div class="paper-footer">
+                <span class="paper-link">Read PDF <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg></span>
+              </div>
+            </a>
+
+            <a href="https://arxiv.org/pdf/1411.5018.pdf" target="_blank" class="paper-card">
+              <div class="paper-category">
+                📓 General DS
+              </div>
+              <h3 class="paper-title">Frequentism and Bayesianism: A Python-driven Primer</h3>
+              <p class="paper-desc">Jake VanderPlas provides an intuitive, code-first approach to understanding the
+                philosophical and practical differences between frequentist and Bayesian approaches.</p>
+              <div class="paper-footer">
+                <span class="paper-link">Read PDF <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg></span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <section class="block fade-in">
+          <div class="section-title">
+            <span>Machine Learning</span>
+            <div class="rule"></div>
+          </div>
+          <div class="paper-grid">
+            <a href="https://arxiv.org/pdf/1811.12808.pdf" target="_blank" class="paper-card">
+              <div class="paper-category">
+                🎯 General ML
+              </div>
+              <h3 class="paper-title">Model Evaluation, Model Selection, and Algorithm Selection</h3>
+              <p class="paper-desc">Sebastian Raschka's comprehensive guide to the different techniques for evaluating
+                machine learning models and selecting the best one.</p>
+              <div class="paper-footer">
+                <span class="paper-link">Read PDF <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg></span>
+              </div>
+            </a>
+
+            <a href="https://arxiv.org/pdf/1603.02754.pdf" target="_blank" class="paper-card">
+              <div class="paper-category">
+                🚀 Boosting
+              </div>
+              <h3 class="paper-title">XGBoost: A Scalable Tree Boosting System</h3>
+              <p class="paper-desc">The original paper describing the system that dominates Kaggle competitions,
+                detailing its algorithmic optimizations and sparsity-aware split finding.</p>
+              <div class="paper-footer">
+                <span class="paper-link">Read PDF <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg></span>
+              </div>
+            </a>
+
+            <a href="https://arxiv.org/pdf/1309.6392.pdf" target="_blank" class="paper-card">
+              <div class="paper-category">
+                📖 Unraveling Blackbox ML
+              </div>
+              <h3 class="paper-title">Peeking Inside the Black Box (ICE Plots)</h3>
+              <p class="paper-desc">Introduces Individual Conditional Expectation (ICE) plots to visualize the
+                relationship between features and predictions in black-box models.</p>
+              <div class="paper-footer">
+                <span class="paper-link">Read PDF <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg></span>
+              </div>
+            </a>
+
+            <a href="https://arxiv.org/pdf/1404.1100.pdf" target="_blank" class="paper-card">
+              <div class="paper-category">
+                ✂️ Dimensionality Reduction
+              </div>
+              <h3 class="paper-title">A Tutorial on Principal Component Analysis</h3>
+              <p class="paper-desc">An excellent, highly readable tutorial on PCA that builds the intuition behind the
+                math from the ground up.</p>
+              <div class="paper-footer">
+                <span class="paper-link">Read PDF <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg></span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <section class="block fade-in">
+          <div class="section-title">
+            <span>Recommenders & Deep Learning</span>
+            <div class="rule"></div>
+          </div>
+          <div class="paper-grid">
+            <a href="http://delivery.acm.org/10.1145/2850000/2843948/a13-gomez-uribe.pdf" target="_blank"
+              class="paper-card">
+              <div class="paper-category">
+                🔮 Recommenders
+              </div>
+              <h3 class="paper-title">The Netflix Recommender System</h3>
+              <p class="paper-desc">An industry case study examining the algorithms, business value, and innovation
+                behind one of the most famous recommender systems.</p>
+              <div class="paper-footer">
+                <span class="paper-link">Read PDF <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg></span>
+              </div>
+            </a>
+
+            <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank" class="paper-card">
+              <div class="paper-category">
+                🧠 Deep Learning
+              </div>
+              <h3 class="paper-title">Attention Is All You Need</h3>
+              <p class="paper-desc">The seminal paper introducing the Transformer architecture, which dispensed with
+                recurrence and convolutions entirely and paved the way for modern LLMs.</p>
+              <div class="paper-footer">
+                <span class="paper-link">Read PDF <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg></span>
+              </div>
+            </a>
+
+            <a href="https://arxiv.org/pdf/1512.03385.pdf" target="_blank" class="paper-card">
+              <div class="paper-category">
+                🧠 Deep Learning
+              </div>
+              <h3 class="paper-title">Deep Residual Learning for Image Recognition</h3>
+              <p class="paper-desc">Introduces ResNet and residual connections, solving the vanishing gradient problem
+                and allowing the training of extremely deep neural networks.</p>
+              <div class="paper-footer">
+                <span class="paper-link">Read PDF <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg></span>
+              </div>
+            </a>
+
+            <a href="https://arxiv.org/pdf/1412.6980.pdf" target="_blank" class="paper-card">
+              <div class="paper-category">
+                🧠 Deep Learning
+              </div>
+              <h3 class="paper-title">Adam: A Method for Stochastic Optimization</h3>
+              <p class="paper-desc">Presents Adam, an algorithm for first-order gradient-based optimization of
+                stochastic objective functions, which is now a standard default optimizer.</p>
+              <div class="paper-footer">
+                <span class="paper-link">Read PDF <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17l9.2-9.2M17 17V7H7" />
+                  </svg></span>
+              </div>
+            </a>
           </div>
         </section>
 
