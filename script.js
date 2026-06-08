@@ -41,28 +41,116 @@
       }
       months.innerHTML = monthsHtml;
 
+      // Base date configuration for fallbacks
+      const today = new Date();
+      const startOffset = today.getDay();
+      const startDate = new Date(today);
+      startDate.setDate(today.getDate() - (52 * 7 + startOffset));
+
+      function formatDateString(dateStr) {
+        if (!dateStr) return '';
+        const parts = dateStr.split('-');
+        if (parts.length !== 3) return dateStr;
+        const date = new Date(parts[0], parts[1] - 1, parts[2]);
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+
+      function formatDateObj(dateObj) {
+        return dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+
       let cellsHtml = '';
-      // data format expected: array of 53 weeks, each containing 7 days of contribution levels (0-4)
+      // data format expected: array of 53 weeks, each containing 7 days of contribution level/count/date objects
       for (let w = 0; w < WEEKS; w++) {
         cellsHtml += '<div class="heat-week">';
         for (let d = 0; d < 7; d++) {
           let levelVal = fallbackLevel(w, d);
+          let countVal = 0;
+          
+          const cellDate = new Date(startDate);
+          cellDate.setDate(startDate.getDate() + (w * 7 + d));
+          let dateStr = formatDateObj(cellDate);
+
+          if (levelVal === 1) countVal = 1;
+          else if (levelVal === 2) countVal = 3;
+          else if (levelVal === 3) countVal = 6;
+          else if (levelVal === 4) countVal = 12;
+
           if (data && data[w] && data[w][d] !== undefined) {
-            levelVal = data[w][d];
+            const dayInfo = data[w][d];
+            if (dayInfo && typeof dayInfo === 'object') {
+              levelVal = dayInfo.level;
+              countVal = dayInfo.count;
+              dateStr = formatDateString(dayInfo.date);
+            }
           }
-          cellsHtml += `<div class="heat-cell h${levelVal}"></div>`;
+
+          // Prevent future days (e.g. remaining days of the current week) from rendering contributions
+          const cellDateZeroTime = new Date(cellDate.getFullYear(), cellDate.getMonth(), cellDate.getDate());
+          const todayZeroTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+          if (cellDateZeroTime > todayZeroTime) {
+            levelVal = 0;
+            countVal = 0;
+          }
+
+          cellsHtml += `<div class="heat-cell h${levelVal}" data-count="${countVal}" data-date="${dateStr}"></div>`;
         }
         cellsHtml += '</div>';
       }
       cells.innerHTML = cellsHtml;
     }
 
+    // Interactive tooltip implementation
+    let tooltip = document.querySelector('.heat-tooltip');
+    if (!tooltip) {
+      tooltip = document.createElement('div');
+      tooltip.className = 'heat-tooltip';
+      const heatCard = document.querySelector('.heat-card');
+      if (heatCard) {
+        heatCard.appendChild(tooltip);
+      }
+    }
+
+    const heatCellsContainer = document.getElementById('heatCells');
+    if (heatCellsContainer) {
+      heatCellsContainer.addEventListener('mouseover', (e) => {
+        const cell = e.target.closest('.heat-cell');
+        if (!cell) return;
+
+        const count = cell.getAttribute('data-count');
+        const date = cell.getAttribute('data-date');
+        if (!date) return;
+
+        const countText = count === '0' ? 'No contributions' : `${count} contribution${count === '1' ? '' : 's'}`;
+        tooltip.innerHTML = `<strong>${countText}</strong> on ${date}`;
+
+        const card = document.querySelector('.heat-card');
+        const cardRect = card.getBoundingClientRect();
+        const cellRect = cell.getBoundingClientRect();
+
+        const left = cellRect.left - cardRect.left + (cellRect.width / 2);
+        const top = cellRect.top - cardRect.top;
+
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${top}px`;
+        tooltip.style.opacity = '1';
+        tooltip.style.transform = 'translate(-50%, -100%) translateY(-8px) scale(1)';
+      });
+
+      heatCellsContainer.addEventListener('mouseout', (e) => {
+        if (e.target.closest('.heat-cell')) {
+          tooltip.style.opacity = '0';
+          tooltip.style.transform = 'translate(-50%, -100%) translateY(-4px) scale(0.95)';
+        }
+      });
+    }
+
     // The real deal: Fetching live data from GitHub
     fetch('https://github-contributions-api.deno.dev/aspartic-gthb.json')
       .then(res => res.json())
       .then(resData => {
-        // Create 53x7 array
-        let weeks = Array.from({ length: WEEKS }, () => Array(7).fill(0));
+        // Create 53x7 array of objects
+        let weeks = Array.from({ length: WEEKS }, () => Array(7).fill(null));
 
         // API returns quartile labels, not raw counts — map to CSS classes h0–h4.
         const levelMap = {
@@ -80,7 +168,11 @@
             for (let d = 0; d < resData.contributions[w].length; d++) {
               if (d >= 7) break;
               let dayData = resData.contributions[w][d];
-              weeks[w][d] = levelMap[dayData.contributionLevel] || 0;
+              weeks[w][d] = {
+                level: levelMap[dayData.contributionLevel] || 0,
+                count: dayData.contributionCount || 0,
+                date: dayData.date
+              };
               flatDays.push(dayData);
             }
           }

@@ -265,6 +265,7 @@ section.block { padding: 2.5rem 1.5rem; }
 
 /* Activity Map: The GitHub-style contribution grid */
 .heat-card {
+  position: relative; /* For tooltip positioning */
   border: 1px solid var(--border); border-radius: 0.75rem; background: var(--card);
   padding: 1rem;
 }
@@ -272,20 +273,77 @@ section.block { padding: 2.5rem 1.5rem; }
   margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between;
   font-size: 0.75rem; color: var(--muted-foreground);
 }
-.heat-scroll { overflow-x: auto; }
-.heat-row { display: flex; gap: 0.75rem; }
-.heat-days {
-  margin-top: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;
-  font-size: 10px; color: var(--muted-foreground);
+.heat-scroll { overflow: visible; }
+.heat-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
-.heat-grid { flex: 1; }
+.heat-month-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+.heat-days-spacer {
+  width: 28px;
+  flex-shrink: 0;
+}
 .heat-months {
-  margin-bottom: 0.25rem; display: grid; grid-template-columns: repeat(53, minmax(0, 1fr));
-  font-size: 10px; color: var(--muted-foreground); text-align: center;
+  flex: 1;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  font-size: 10px;
+  color: var(--muted-foreground);
 }
-.heat-cells { display: grid; grid-template-columns: repeat(53, minmax(0, 1fr)); gap: 3px; }
+.heat-months span {
+  text-align: left;
+  white-space: nowrap;
+}
+.heat-cells-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+.heat-days {
+  width: 28px;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+  font-size: 10px;
+  color: var(--muted-foreground);
+  line-height: 1;
+  align-items: center;
+}
+.heat-cells {
+  flex: 1;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 3px;
+}
+
+/* Responsive truncation of older weeks to fit without scrollbars */
+@media (max-width: 768px) {
+  .heat-week:nth-child(-n+15) {
+    display: none;
+  }
+  .heat-months span:nth-child(-n+15) {
+    display: none;
+  }
+}
+@media (max-width: 500px) {
+  .heat-week:nth-child(-n+31) {
+    display: none;
+  }
+  .heat-months span:nth-child(-n+31) {
+    display: none;
+  }
+}
 .heat-week { display: grid; grid-template-rows: repeat(7, 1fr); gap: 3px; }
-.heat-cell { aspect-ratio: 1; width: 100%; border-radius: 2px; outline: 1px solid var(--heat-outline); outline-offset: -1px; }
+.heat-cell { aspect-ratio: 1; width: 100%; border-radius: 2px; outline: 1px solid var(--heat-outline); outline-offset: -1px; transition: transform 0.1s ease; }
+.heat-cell:hover { transform: scale(1.15); z-index: 10; outline-color: var(--foreground); }
 .h0 { background: var(--heat-0); } .h1 { background: var(--heat-1); }
 .h2 { background: var(--heat-2); } .h3 { background: var(--heat-3); }
 .h4 { background: var(--heat-4); }
@@ -294,6 +352,34 @@ section.block { padding: 2.5rem 1.5rem; }
   gap: 0.5rem; font-size: 10px; color: var(--muted-foreground);
 }
 .heat-legend span.swatch { height: 0.625rem; width: 0.625rem; border-radius: 2px; display: inline-block; outline: 1px solid var(--heat-outline); outline-offset: -1px; }
+
+/* Tooltip for cells */
+.heat-tooltip {
+  position: absolute;
+  background: var(--foreground);
+  color: var(--background);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -100%) translateY(-4px) scale(0.95);
+  transition: opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1), transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+.heat-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--foreground) transparent transparent transparent;
+}
 
 /* Timeline */
 .timeline { display: flex; flex-direction: column; gap: 2rem; }
