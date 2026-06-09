@@ -86,14 +86,14 @@ Everything runs inside one IIFE starting at line 2.
 | Lines (approx) | Concern | DOM / globals |
 |----------------|---------|----------------|
 | 2–13 | Theme init + toggle | `localStorage.theme`, `[data-theme-toggle]`, `html.dark` |
-| 15–111 | GitHub contribution heatmap | `#heatCells`, `#heatMonths`, `#heatTotal`, `#heatStreak` |
-| 112–152 | Last.fm “now playing” | `.spotify`, global `CONFIG` |
-| 154–187 | Visitor counter | `#viewCount` |
-| 189–202 | Scroll fade-in | `section.block`, `IntersectionObserver` |
-| 204–208 | Mobile nav | `#mainNav`, `toggleMobileMenu()` |
-| 210–355 | Command palette | `#commandPalette`, `openPalette()`, `handleAction()` |
-| 357–367 | Pixel pet | `petMeow()` |
-| 369–386 | Custom cursor | `.custom-cursor` |
+| 18–198 | GitHub contribution heatmap | `#heatCells`, `#heatTotal`, `#heatStreak` |
+| 199–239 | Last.fm “now playing” | `.spotify`, global `CONFIG` |
+| 241–274 | Visitor counter | `#viewCount` |
+| 276–289 | Scroll fade-in | `section.block`, `IntersectionObserver` |
+| 291–295 | Mobile nav | `#mainNav`, `toggleMobileMenu()` |
+| 297–442 | Command palette | `#commandPalette`, `openPalette()`, `handleAction()` |
+| 444–453 | Pixel pet | `petMeow()` |
+| 455–474 | Custom cursor | `.custom-cursor` |
 
 ## Data flows
 
@@ -109,7 +109,7 @@ CSS uses `html.dark { --background: ... }` in `styles.css` (lines 22–38).
 
 1. `fetch('https://github-contributions-api.deno.dev/aspartic-gthb.json')`
 2. Map API `contributionLevel` strings → integers 0–4.
-3. Build 53×7 grid; `renderHeatmap()` writes month labels + cell divs.
+3. Build 53×7 grid; `renderHeatmap()` writes cell divs.
 4. On failure: `fallbackLevel(w,d)` pseudo-random pattern (looks real but is fake).
 
 **Why a third-party API:** GitHub has no official public “contributions JSON” for arbitrary sites without auth. This Deno-hosted proxy is a common shortcut for portfolios.

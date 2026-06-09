@@ -17,10 +17,8 @@
 
   // GitHub Heatmap: Fetching my recent coding activity
   const cells = document.getElementById('heatCells');
-  const months = document.getElementById('heatMonths');
-  if (cells && months) {
+  if (cells) {
     const WEEKS = 53;
-    const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     // Deterministic fake levels when the API fails — looks like activity but is not real data.
     function fallbackLevel(w, d) {
       const v = (Math.sin(w * 12.9898 + d * 78.233) * 43758.5453) % 1;
@@ -33,13 +31,6 @@
     }
 
     function renderHeatmap(data) {
-      let monthsHtml = '';
-      for (let w = 0; w < WEEKS; w++) {
-        const idx = Math.floor((w / WEEKS) * 12);
-        const prev = w === 0 ? -1 : Math.floor(((w - 1) / WEEKS) * 12);
-        monthsHtml += `<span>${idx !== prev ? MONTHS[idx] : ''}</span>`;
-      }
-      months.innerHTML = monthsHtml;
 
       // Base date configuration for fallbacks
       const today = new Date();
@@ -193,7 +184,7 @@
 
           const heatTotalEl = document.getElementById('heatTotal');
           const heatStreakEl = document.getElementById('heatStreak');
-          if (heatTotalEl) heatTotalEl.textContent = `${total} contributions in the last year`;
+          if (heatTotalEl) heatTotalEl.textContent = `${total} contributions in the last 365 days`;
           if (heatStreakEl) {
             heatStreakEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2s4 4 4 8a4 4 0 1 1-8 0c0-2 1-4 4-8z" /></svg> ${streak} day streak`;
           }
