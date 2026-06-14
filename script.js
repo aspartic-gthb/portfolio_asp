@@ -301,6 +301,168 @@
   let activeIndex = 0;
   let visibleItems = [];
 
+  const projects = [
+    {
+      title: "FindInCampus",
+      desc: "AI-driven MERN stack lost and found platform with Gemini AI.",
+      action: "url:https://github.com/aspartic-gthb/FindInCampus",
+      type: "Project",
+      category: "MERN Stack / AI"
+    },
+    {
+      title: "Resourcely",
+      desc: "React Native app with Firebase Authentication & Firestore.",
+      action: "url:https://github.com/aspartic-gthb/Resourcely_Android_App",
+      type: "Project",
+      category: "Mobile App"
+    },
+    {
+      title: "Vyapar Setu",
+      desc: "AI-powered Hinglish Telegram business bot & dashboard for SMBs.",
+      action: "url:https://github.com/aspartic-gthb/vyapar-setu",
+      type: "Project",
+      category: "AI / SaaS"
+    },
+    {
+      title: "Obstacle Avoiding Robot",
+      desc: "Arduino autonomous robot car navigated using C++ and ultrasonic sensors.",
+      action: "url:https://github.com/aspartic-gthb/obstacle-avoiding-robot",
+      type: "Project",
+      category: "Embedded / Robotics"
+    }
+  ];
+
+  const papers = [
+    {
+      title: "Data preprocessing - Tidy data",
+      desc: "Hadley Wickham's foundational paper on data tidying standards.",
+      action: "url:https://vita.had.co.nz/papers/tidy-data.pdf",
+      type: "Paper",
+      category: "Pre-processing & EDA"
+    },
+    {
+      title: "Statistical Modeling: The Two Cultures",
+      desc: "Leo Breiman on data modeling vs algorithmic modeling in statistics.",
+      action: "url:https://projecteuclid.org/download/pdf_1/euclid.ss/1009213726",
+      type: "Paper",
+      category: "General DS"
+    },
+    {
+      title: "Frequentism and Bayesianism: A Python Primer",
+      desc: "Jake VanderPlas' code-first primer comparing statistics approaches.",
+      action: "url:https://arxiv.org/pdf/1411.5018.pdf",
+      type: "Paper",
+      category: "General DS"
+    },
+    {
+      title: "Model Evaluation, Model Selection, and Algorithm Selection",
+      desc: "Sebastian Raschka's guide on ML model evaluation and selection.",
+      action: "url:https://arxiv.org/pdf/1811.12808.pdf",
+      type: "Paper",
+      category: "General ML"
+    },
+    {
+      title: "XGBoost: A Scalable Tree Boosting System",
+      desc: "The original paper describing the tree boosting system that dominates competitions.",
+      action: "url:https://arxiv.org/pdf/1603.02754.pdf",
+      type: "Paper",
+      category: "Boosting"
+    },
+    {
+      title: "Peeking Inside the Black Box (ICE Plots)",
+      desc: "Visualizing feature relationships using Individual Conditional Expectation.",
+      action: "url:https://arxiv.org/pdf/1309.6392.pdf",
+      type: "Paper",
+      category: "Explainable AI"
+    },
+    {
+      title: "A Tutorial on Principal Component Analysis",
+      desc: "Intuitive tutorial on the math and motivation behind PCA dimensionality reduction.",
+      action: "url:https://arxiv.org/pdf/1404.1100.pdf",
+      type: "Paper",
+      category: "Dimensionality Reduction"
+    },
+    {
+      title: "The Netflix Recommender System",
+      desc: "Case study examining the algorithms and innovation behind Netflix recommendations.",
+      action: "url:http://delivery.acm.org/10.1145/2850000/2843948/a13-gomez-uribe.pdf",
+      type: "Paper",
+      category: "Recommenders"
+    },
+    {
+      title: "Attention Is All You Need",
+      desc: "The seminal paper introducing the Transformer architecture and self-attention.",
+      action: "url:https://arxiv.org/pdf/1706.03762.pdf",
+      type: "Paper",
+      category: "Deep Learning"
+    },
+    {
+      title: "Deep Residual Learning for Image Recognition",
+      desc: "Introduces ResNet and residual connections, enabling extremely deep networks.",
+      action: "url:https://arxiv.org/pdf/1512.03385.pdf",
+      type: "Paper",
+      category: "Deep Learning"
+    },
+    {
+      title: "Adam: A Method for Stochastic Optimization",
+      desc: "Presents the Adam optimization algorithm for gradient-based training.",
+      action: "url:https://arxiv.org/pdf/1412.6980.pdf",
+      type: "Paper",
+      category: "Deep Learning"
+    }
+  ];
+
+  const staticItems = [
+    {
+      title: "Go to Home",
+      kbd: "H",
+      action: "home",
+      icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>`
+    },
+    {
+      title: "View Projects",
+      kbd: "P",
+      action: "projects",
+      icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg>`
+    },
+    {
+      title: "Read Blogs",
+      kbd: "B",
+      action: "blogs",
+      icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>`
+    },
+    {
+      title: "Research Papers",
+      kbd: "R",
+      action: "research",
+      icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" /></svg>`
+    },
+    {
+      title: "Toggle Theme",
+      kbd: "T",
+      action: "theme",
+      icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" /></svg>`
+    },
+    {
+      title: "Copy Email",
+      kbd: "E",
+      action: "copy-email",
+      icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>`
+    },
+    {
+      title: "View Resume",
+      kbd: "M",
+      action: "resume",
+      icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /></svg>`
+    },
+    {
+      title: "Back to Top",
+      kbd: "U",
+      action: "top",
+      icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7" /></svg>`
+    }
+  ];
+
   const getVisibleItems = () => Array.from(document.querySelectorAll('.cm-item')).filter(item => item.style.display !== 'none');
 
   const updateActiveItem = () => {
@@ -311,15 +473,89 @@
     });
   };
 
+  const renderItem = (item) => {
+    if (item.kbd) {
+      return `
+        <div class="cm-item" data-action="${item.action}">
+          ${item.icon || ''}
+          <span style="flex: 1;">${item.title}</span>
+          <kbd>${item.kbd}</kbd>
+        </div>
+      `;
+    } else {
+      const typeLabel = item.type;
+      const icon = typeLabel === 'Project' ? 
+        `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg>` : 
+        `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>`;
+      return `
+        <div class="cm-item" data-action="${item.action}">
+          ${icon}
+          <div class="cm-item-info">
+            <div class="cm-item-title-row">
+              <span class="cm-item-title">${item.title}</span>
+              <span class="cm-item-type">${typeLabel}</span>
+            </div>
+            <div class="cm-item-desc">${item.desc}</div>
+          </div>
+        </div>
+      `;
+    }
+  };
+
+  const renderPalette = (term = '') => {
+    if (!cmList) return;
+    const cleanTerm = term.toLowerCase().trim();
+    
+    let html = '';
+    
+    if (!cleanTerm) {
+      html = staticItems.map(item => renderItem(item)).join('');
+    } else {
+      const matchedStatic = staticItems.filter(item => 
+        item.title.toLowerCase().includes(cleanTerm)
+      );
+      
+      const matchedProjects = projects.filter(item => 
+        item.title.toLowerCase().includes(cleanTerm) ||
+        item.desc.toLowerCase().includes(cleanTerm) ||
+        (item.category && item.category.toLowerCase().includes(cleanTerm))
+      );
+      
+      const matchedPapers = papers.filter(item => 
+        item.title.toLowerCase().includes(cleanTerm) ||
+        item.desc.toLowerCase().includes(cleanTerm) ||
+        (item.category && item.category.toLowerCase().includes(cleanTerm))
+      );
+      
+      if (matchedStatic.length === 0 && matchedProjects.length === 0 && matchedPapers.length === 0) {
+        html = `<div class="cm-no-results">No results found for "${term}"</div>`;
+      } else {
+        if (matchedStatic.length > 0) {
+          html += `<div class="cm-section-label">Navigation</div>`;
+          html += matchedStatic.map(item => renderItem(item)).join('');
+        }
+        if (matchedProjects.length > 0) {
+          html += `<div class="cm-section-label">Projects</div>`;
+          html += matchedProjects.map(item => renderItem(item)).join('');
+        }
+        if (matchedPapers.length > 0) {
+          html += `<div class="cm-section-label">Research Papers</div>`;
+          html += matchedPapers.map(item => renderItem(item)).join('');
+        }
+      }
+    }
+    
+    cmList.innerHTML = html;
+    activeIndex = 0;
+    updateActiveItem();
+  };
+
   window.openPalette = () => {
     if (!palette) return;
     palette.style.display = 'flex';
     cmInput.focus();
-    activeIndex = 0;
-    // Reset filtering
-    document.querySelectorAll('.cm-item').forEach(item => item.style.display = 'flex');
     cmInput.value = '';
-    updateActiveItem();
+    renderPalette('');
   };
 
   const closePalette = () => {
@@ -328,6 +564,11 @@
 
   const handleAction = (action) => {
     if (!action) return;
+    if (action.startsWith('url:')) {
+      window.open(action.substring(4), '_blank');
+      closePalette();
+      return;
+    }
     switch (action) {
       case 'home': window.location.href = './'; break;
       case 'projects': window.location.href = 'projects.html'; break;
@@ -338,7 +579,7 @@
         if (themeBtn) themeBtn.click();
         break;
       case 'resume':
-        window.open('https://drive.google.com/file/d/1nQBybvVzQ36ZllzWKMCyJ9vp54wuCQe9/view?usp=sharing', '_blank');
+        window.open('https://drive.google.com/file/d/1Z7ux_5kCLrzZ9N9q4BgLb0wwg825UCfH/view?usp=sharing', '_blank');
         break;
       case 'top':
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -359,14 +600,7 @@
   // Filter items as you type
   if (cmInput) {
     cmInput.addEventListener('input', (e) => {
-      const term = e.target.value.toLowerCase();
-      const allItems = document.querySelectorAll('.cm-item');
-      allItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.style.display = text.includes(term) ? 'flex' : 'none';
-      });
-      activeIndex = 0;
-      updateActiveItem();
+      renderPalette(e.target.value);
     });
   }
 
@@ -385,14 +619,18 @@
       
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        activeIndex = (activeIndex + 1) % visibleItems.length;
-        updateActiveItem();
+        if (visibleItems.length > 0) {
+          activeIndex = (activeIndex + 1) % visibleItems.length;
+          updateActiveItem();
+        }
       }
       
       if (e.key === 'ArrowUp') {
         e.preventDefault();
-        activeIndex = (activeIndex - 1 + visibleItems.length) % visibleItems.length;
-        updateActiveItem();
+        if (visibleItems.length > 0) {
+          activeIndex = (activeIndex - 1 + visibleItems.length) % visibleItems.length;
+          updateActiveItem();
+        }
       }
       
       if (e.key === 'Enter' && visibleItems[activeIndex]) {
@@ -441,17 +679,63 @@
     });
   }
 
-  // Pixel pet click interaction
+  // Interactive Pixel Pet State Machine & Logic
+  const pet = document.querySelector('.pixel-pet');
+  const petBubble = document.getElementById('petMeow');
+  
+  const meowMessages = [
+    "Meow! Try pressing Ctrl+K to search all pages, projects, and papers! 🔍",
+    "Prrr... ECE + Machine Learning is the future! ⚡",
+    "I'm the official portfolio bug catcher! 🐛",
+    "Time for a coffee break? ☕",
+    "Meow! Working hard or hardly working?",
+    "Keep coding, you're doing amazing! 💻",
+    "Did you see the ISRO space challenge under Experience? 🚀",
+    "Attention is indeed all you need! 🧠",
+    "Check out FindInCampus in the Projects tab! 🏫",
+    "Purrr... Life is better in monospace."
+  ];
+
+  let petStateTimeout = null;
+  let meowTimeout = null;
+
   window.petMeow = () => {
-    const bubble = document.getElementById('petMeow');
-    if (bubble) {
-      bubble.style.display = 'block';
-      bubble.style.animation = 'none';
-      bubble.offsetHeight; // trigger reflow
-      bubble.style.animation = 'meow-fade 2s forwards';
-      setTimeout(() => { bubble.style.display = 'none'; }, 2000);
-    }
+    if (!pet || !petBubble) return;
+    
+    clearTimeout(petStateTimeout);
+    clearTimeout(meowTimeout);
+    
+    pet.classList.remove('is-sleeping');
+    pet.classList.add('is-awake', 'is-purring');
+    
+    const msg = meowMessages[Math.floor(Math.random() * meowMessages.length)];
+    petBubble.textContent = msg;
+    
+    petBubble.style.display = 'block';
+    petBubble.style.animation = 'none';
+    petBubble.offsetHeight; // force reflow
+    petBubble.style.animation = 'meow-fade 3.5s forwards';
+    
+    meowTimeout = setTimeout(() => {
+      petBubble.style.display = 'none';
+      pet.classList.remove('is-purring');
+    }, 3500);
+    
+    petStateTimeout = setTimeout(() => {
+      pet.classList.remove('is-awake', 'is-purring');
+    }, 8000);
   };
+
+  if (pet) {
+    pet.addEventListener('mouseenter', () => {
+      pet.classList.add('is-awake');
+    });
+    pet.addEventListener('mouseleave', () => {
+      if (!pet.classList.contains('is-purring')) {
+        pet.classList.remove('is-awake');
+      }
+    });
+  }
 
   // Custom Terminal Cursor Logic
   const cursor = document.createElement('div');
@@ -463,12 +747,9 @@
     cursor.style.top = e.clientY + 'px';
   });
 
-  const addHoverEffects = () => {
-    const interactables = document.querySelectorAll('a, button, .cm-hint, .pixel-pet, .avatar, .tech-item');
-    interactables.forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
-    });
-  };
-  addHoverEffects();
+  // Event delegation for custom cursor hovering states
+  document.addEventListener('mouseover', (e) => {
+    const isHovering = e.target.closest('a, button, .cm-hint, .pixel-pet, .avatar, .tech-item, .cm-item');
+    cursor.classList.toggle('hovering', !!isHovering);
+  });
 })();
