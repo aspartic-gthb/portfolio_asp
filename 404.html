@@ -81,8 +81,26 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
-</body>
+  <script>
+    // Minimal script for theme and pet on 404 page
+    (function () {
+      const root = document.documentElement;
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) root.classList.add('dark');
 
+      window.petMeow = () => {
+        const bubble = document.getElementById('petMeow');
+        if (bubble) {
+          bubble.style.display = 'block';
+          bubble.style.animation = 'none';
+          bubble.offsetHeight;
+          bubble.style.animation = 'meow-fade 2s forwards';
+          setTimeout(() => { bubble.style.display = 'none'; }, 2000);
+        }
+      };
+    })();
+  </script>
+</body>
 
 </html>

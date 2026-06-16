@@ -137,8 +137,7 @@
     }
 
     // The real deal: Fetching live data from GitHub
-    const githubUser = typeof CONFIG !== 'undefined' && CONFIG.IDENTITY ? CONFIG.IDENTITY.GITHUB_USERNAME : "aspartic-gthb";
-    fetch(`https://github-contributions-api.deno.dev/${githubUser}.json`)
+    fetch('https://github-contributions-api.deno.dev/aspartic-gthb.json')
       .then(res => res.json())
       .then(resData => {
         // Create 53x7 array of objects
@@ -197,12 +196,12 @@
         renderHeatmap(null); // use fallback on error
       });
   }
-  // Last.fm widget (markup uses class "now-playing" for styling only — not the Spotify API).
+  // Last.fm widget (markup uses class "spotify" for styling only — not the Spotify API).
   const lastFmUser = typeof CONFIG !== 'undefined' ? CONFIG.LASTFM_USER : "asparticlistens";
   const lastFmKey = typeof CONFIG !== 'undefined' ? CONFIG.LASTFM_API_KEY : "";
 
-  const now-playingEl = document.querySelector('.now-playing');
-  if (lastFmUser && lastFmKey && now-playingEl) {
+  const spotifyEl = document.querySelector('.spotify');
+  if (lastFmUser && lastFmKey && spotifyEl) {
     const updateSpotify = async () => {
       try {
         const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastFmUser}&api_key=${lastFmKey}&format=json&limit=1`);
@@ -213,11 +212,11 @@
         const track = data.recenttracks.track[0];
         const isPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
 
-        const titleEl = now-playingEl.querySelector('.title');
-        const subEl = now-playingEl.querySelector('.sub');
-        const imgEl = now-playingEl.querySelector('img');
-        const labelEl = now-playingEl.querySelector('.label');
-        const barsEl = now-playingEl.querySelector('.now-playing-bars');
+        const titleEl = spotifyEl.querySelector('.title');
+        const subEl = spotifyEl.querySelector('.sub');
+        const imgEl = spotifyEl.querySelector('img');
+        const labelEl = spotifyEl.querySelector('.label');
+        const barsEl = spotifyEl.querySelector('.spotify-bars');
 
         if (titleEl) titleEl.textContent = track.name;
         if (subEl) subEl.textContent = `${track.artist['#text']} — ${track.album['#text']}`;
@@ -244,12 +243,12 @@
   if (viewCountEl) {
     const updateCounter = async () => {
       try {
-        const namespace = (typeof CONFIG !== 'undefined' && CONFIG.IDENTITY) ? CONFIG.IDENTITY.COUNTER_NAMESPACE : "aspartic-portfolio";
+        const namespace = "aspartic-portfolio";
         const key = "main-visits";
         // /up increments on every page load — refreshes inflate the count (not a read-only metric).
         const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
         const data = await response.json();
-
+        
         if (data && data.count) {
           const totalViews = data.count;
           // Counting up animation for the visitor tally
@@ -585,16 +584,15 @@
       case 'top':
         window.scrollTo({ top: 0, behavior: 'smooth' });
         break;
-      case 'copy-email':
-        const email = (typeof CONFIG !== 'undefined' && CONFIG.IDENTITY) ? CONFIG.IDENTITY.EMAIL : 'anirudhsahu6001@gmail.com';
-        navigator.clipboard.writeText(email);
+      case 'copy-email': 
+        navigator.clipboard.writeText('anirudhsahu6001@gmail.com');
         const emailItem = document.querySelector('[data-action="copy-email"] span');
         if (emailItem) {
           const originalText = emailItem.textContent;
           emailItem.textContent = 'Copied!';
           setTimeout(() => { emailItem.textContent = originalText; }, 2000);
         }
-        return;
+        return; 
     }
     closePalette();
   };
