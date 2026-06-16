@@ -213,41 +213,41 @@ section.block { padding: 2.5rem 1.5rem; }
 }
 
 /* Spotify Card */
-.spotify {
+.now-playing {
   margin-top: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
   border: 1px dashed var(--border); border-radius: 0.5rem;
   background: color-mix(in oklab, var(--card) 60%, transparent);
   padding: 0.75rem; transition: background 0.2s;
 }
-.spotify:hover { background: var(--accent); }
-.spotify img { height: 3.5rem; width: 3.5rem; border-radius: 0.375rem; object-fit: cover; }
-.spotify .label {
+.now-playing:hover { background: var(--accent); }
+.now-playing img { height: 3.5rem; width: 3.5rem; border-radius: 0.375rem; object-fit: cover; }
+.now-playing .label {
   font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted-foreground);
 }
-.spotify .title { font-size: 0.875rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.spotify .sub { font-size: 0.75rem; color: var(--muted-foreground); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.spotify-meta { flex: 1; min-width: 0; }
-.spotify svg { height: 1.5rem; width: 1.5rem; fill: var(--muted-foreground); flex-shrink: 0; transition: fill 0.2s; }
-.spotify:hover svg { fill: #1DB954; }
+.now-playing .title { font-size: 0.875rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.now-playing .sub { font-size: 0.75rem; color: var(--muted-foreground); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.now-playing-meta { flex: 1; min-width: 0; }
+.now-playing svg { height: 1.5rem; width: 1.5rem; fill: var(--muted-foreground); flex-shrink: 0; transition: fill 0.2s; }
+.now-playing:hover svg { fill: #1DB954; }
 
 /* Spotify bars animation */
-.spotify-bars {
+.now-playing-bars {
   display: flex;
   align-items: flex-end;
   gap: 2px;
   height: 14px;
   margin-left: auto;
 }
-.spotify-bars span {
+.now-playing-bars span {
   width: 3px;
   background: #1DB954;
   border-radius: 1px;
-  animation: spotify-bounce 0.8s ease-in-out infinite alternate;
+  animation: now-playing-bounce 0.8s ease-in-out infinite alternate;
 }
-.spotify-bars span:nth-child(2) { animation-delay: 0.2s; }
-.spotify-bars span:nth-child(3) { animation-delay: 0.4s; }
+.now-playing-bars span:nth-child(2) { animation-delay: 0.2s; }
+.now-playing-bars span:nth-child(3) { animation-delay: 0.4s; }
 
-@keyframes spotify-bounce {
+@keyframes now-playing-bounce {
   0% { height: 4px; }
   100% { height: 14px; }
 }
