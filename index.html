@@ -101,8 +101,30 @@
             </li>
           </ul>
 
-          <a href="#" class="spotify">
-            <img src="assets/album.jpg" alt="Album art" width="56" height="56" />
+          <a href="#" class="spotify is-playing">
+            <div class="spotify-record-wrapper">
+              <!-- Cardboard Album Jacket/Sleeve -->
+              <div class="album-jacket">
+                <img src="assets/album.jpg" alt="Album art" class="jacket-art" width="56" height="56" />
+              </div>
+              <!-- Slide Wrapper for the Disk -->
+              <div class="vinyl-slide-wrapper">
+                <!-- Rotating Vinyl Disk -->
+                <div class="vinyl-disk">
+                  <div class="vinyl-grooves"></div>
+                  <img src="assets/album.jpg" alt="Album art" class="vinyl-art" width="56" height="56" />
+                  <div class="vinyl-gloss"></div>
+                </div>
+              </div>
+              <!-- Pivoting Needle/Tonearm -->
+              <div class="record-needle">
+                <svg viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="19" cy="5" r="2.5" fill="currentColor" stroke="none" />
+                  <path d="M19 5 L11 16 L11 25" />
+                  <path d="M9 25 L13 25 L11 29 Z" fill="currentColor" stroke="none" />
+                </svg>
+              </div>
+            </div>
             <div class="spotify-meta">
               <p class="label">Now spinning</p>
               <p class="title">Midnight Drive</p>
@@ -126,39 +148,38 @@
           <div class="chips">
             <a class="chip" href="https://github.com/aspartic-gthb" target="_blank" rel="noreferrer">
               <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.04c-3.2.7-3.87-1.37-3.87-1.37-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.27-5.24-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.36-5.25 5.65.41.36.78 1.06.78 2.14v3.18c0 .31.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z" />
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
               </svg>
               GitHub
             </a>
             <a class="chip" href="https://x.com/Aspartic2314" target="_blank" rel="noreferrer">
               <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M22 5.92c-.74.33-1.54.55-2.36.65a4.13 4.13 0 0 0 1.81-2.27 8.26 8.26 0 0 1-2.6.99 4.1 4.1 0 0 0-7 3.74A11.65 11.65 0 0 1 3.39 4.6a4.1 4.1 0 0 0 1.27 5.48 4.07 4.07 0 0 1-1.86-.51v.05a4.11 4.11 0 0 0 3.29 4.03 4.1 4.1 0 0 1-1.85.07 4.11 4.11 0 0 0 3.83 2.85A8.23 8.23 0 0 1 2 18.29 11.62 11.62 0 0 0 8.29 20c7.55 0 11.68-6.26 11.68-11.69v-.53A8.36 8.36 0 0 0 22 5.92z" />
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
-              Twitter
+              X
             </a>
             <a class="chip" href="mailto:anirudhsahu6001@gmail.com" target="_blank" rel="noreferrer">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16v16H4z" />
-                <path d="M22 6l-10 7L2 6" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
               </svg>
               Mail
             </a>
             <a class="chip" href="https://www.instagram.com/asp_artic" target="_blank" rel="noreferrer">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M2 4h16a4 4 0 0 1 4 4v12H6a4 4 0 0 1-4-4V4z" />
-                <path d="M2 4v12a4 4 0 0 0 4 4" />
-                <line x1="8" y1="8" x2="16" y2="8" />
-                <line x1="8" y1="12" x2="16" y2="12" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
               </svg>
               Instagram
             </a>
-            <a class="chip" href="https://drive.google.com/file/d/1Z7ux_5kCLrzZ9N9q4BgLb0wwg825UCfH/view?usp=sharing"
-              target="_blank" rel="noreferrer">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <a class="chip" href="https://drive.google.com/file/d/1Z7ux_5kCLrzZ9N9q4BgLb0wwg825UCfH/view?usp=sharing" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <path d="M14 2v6h6" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
               </svg>
               Resume
             </a>

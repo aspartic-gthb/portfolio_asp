@@ -154,11 +154,16 @@
 
         if (resData && resData.contributions) {
           let flatDays = [];
-          for (let w = 0; w < resData.contributions.length; w++) {
-            if (w >= WEEKS) break;
-            for (let d = 0; d < resData.contributions[w].length; d++) {
-              if (d >= 7) break;
-              let dayData = resData.contributions[w][d];
+          const totalApiWeeks = resData.contributions.length;
+          const startIndex = Math.max(0, totalApiWeeks - WEEKS);
+
+          for (let w = 0; w < WEEKS; w++) {
+            const apiWeekIdx = startIndex + w;
+            if (apiWeekIdx >= totalApiWeeks) break;
+
+            for (let d = 0; d < 7; d++) {
+              let dayData = resData.contributions[apiWeekIdx][d];
+              if (!dayData) continue;
               weeks[w][d] = {
                 level: levelMap[dayData.contributionLevel] || 0,
                 count: dayData.contributionCount || 0,
@@ -172,10 +177,21 @@
           let total = resData.totalContributions || 0;
           let streak = 0;
           if (flatDays.length > 0) {
+            // Get local YYYY-MM-DD date string robustly
+            const offset = new Date().getTimezoneOffset();
+            const localDateObj = new Date(new Date().getTime() - (offset * 60 * 1000));
+            const todayStr = localDateObj.toISOString().split('T')[0];
+            
             let i = flatDays.length - 1;
-            if (flatDays[i].contributionCount === 0) {
-              i--; // if today is 0, start from yesterday
+            // Skip future days in the current week
+            while (i >= 0 && flatDays[i].date > todayStr) {
+              i--;
             }
+            // If today's contribution count is 0, skip today to check yesterday
+            if (i >= 0 && flatDays[i].date === todayStr && flatDays[i].contributionCount === 0) {
+              i--;
+            }
+            // Count consecutive days with contributions > 0
             while (i >= 0 && flatDays[i].contributionCount > 0) {
               streak++;
               i--;
@@ -214,18 +230,22 @@
 
         const titleEl = spotifyEl.querySelector('.title');
         const subEl = spotifyEl.querySelector('.sub');
-        const imgEl = spotifyEl.querySelector('img');
+        const imgEls = spotifyEl.querySelectorAll('img');
         const labelEl = spotifyEl.querySelector('.label');
         const barsEl = spotifyEl.querySelector('.spotify-bars');
 
         if (titleEl) titleEl.textContent = track.name;
         if (subEl) subEl.textContent = `${track.artist['#text']} — ${track.album['#text']}`;
-        if (imgEl) imgEl.src = track.image[2]['#text'] || 'assets/album.jpg';
+        imgEls.forEach(imgEl => {
+          imgEl.src = track.image[2]['#text'] || 'assets/album.jpg';
+        });
 
         if (isPlaying) {
+          spotifyEl.classList.add('is-playing');
           if (labelEl) labelEl.textContent = "Now spinning";
           if (barsEl) barsEl.style.display = 'flex';
         } else {
+          spotifyEl.classList.remove('is-playing');
           if (labelEl) labelEl.textContent = "Recently played";
           if (barsEl) barsEl.style.display = 'none';
         }
