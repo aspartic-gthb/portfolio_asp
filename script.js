@@ -31,7 +31,6 @@
     }
 
     function renderHeatmap(data) {
-
       // Base date configuration for fallbacks
       const today = new Date();
       const startOffset = today.getDay();
@@ -51,29 +50,36 @@
       }
 
       let cellsHtml = '';
-      // data format expected: array of 53 weeks, each containing 7 days of contribution level/count/date objects
+      const hasApiData = data !== null;
+
       for (let w = 0; w < WEEKS; w++) {
         cellsHtml += '<div class="heat-week">';
         for (let d = 0; d < 7; d++) {
-          let levelVal = fallbackLevel(w, d);
-          let countVal = 0;
-          
           const cellDate = new Date(startDate);
           cellDate.setDate(startDate.getDate() + (w * 7 + d));
-          let dateStr = formatDateObj(cellDate);
+          const dateStrFallback = formatDateObj(cellDate);
 
-          if (levelVal === 1) countVal = 1;
-          else if (levelVal === 2) countVal = 3;
-          else if (levelVal === 3) countVal = 6;
-          else if (levelVal === 4) countVal = 12;
+          let levelVal = 0;
+          let countVal = 0;
+          let dateStr = dateStrFallback;
 
-          if (data && data[w] && data[w][d] !== undefined) {
-            const dayInfo = data[w][d];
-            if (dayInfo && typeof dayInfo === 'object') {
-              levelVal = dayInfo.level;
-              countVal = dayInfo.count;
-              dateStr = formatDateString(dayInfo.date);
+          if (hasApiData) {
+            if (data[w] && data[w][d]) {
+              levelVal = data[w][d].level;
+              countVal = data[w][d].count;
+              dateStr = formatDateString(data[w][d].date);
+            } else {
+              levelVal = 0;
+              countVal = 0;
+              dateStr = dateStrFallback;
             }
+          } else {
+            levelVal = fallbackLevel(w, d);
+            if (levelVal === 1) countVal = 1;
+            else if (levelVal === 2) countVal = 3;
+            else if (levelVal === 3) countVal = 6;
+            else if (levelVal === 4) countVal = 12;
+            dateStr = dateStrFallback;
           }
 
           // Prevent future days (e.g. remaining days of the current week) from rendering contributions
@@ -153,37 +159,58 @@
         };
 
         if (resData && resData.contributions) {
-          let flatDays = [];
-          const totalApiWeeks = resData.contributions.length;
-          const startIndex = Math.max(0, totalApiWeeks - WEEKS);
+          // Map API dates for direct lookup
+          const dateMap = {};
+          resData.contributions.forEach(week => {
+            if (week) {
+              week.forEach(day => {
+                if (day && day.date) {
+                  dateMap[day.date] = day;
+                }
+              });
+            }
+          });
 
+          // Calculate start date of the local 53-week range
+          const today = new Date();
+          const startOffset = today.getDay();
+          const startDate = new Date(today);
+          startDate.setDate(today.getDate() - (52 * 7 + startOffset));
+
+          // Populate local weeks array based on actual dates
           for (let w = 0; w < WEEKS; w++) {
-            const apiWeekIdx = startIndex + w;
-            if (apiWeekIdx >= totalApiWeeks) break;
-
             for (let d = 0; d < 7; d++) {
-              let dayData = resData.contributions[apiWeekIdx][d];
-              if (!dayData) continue;
-              weeks[w][d] = {
-                level: levelMap[dayData.contributionLevel] || 0,
-                count: dayData.contributionCount || 0,
-                date: dayData.date
-              };
-              flatDays.push(dayData);
+              const cellDate = new Date(startDate);
+              cellDate.setDate(startDate.getDate() + (w * 7 + d));
+              
+              // Get local YYYY-MM-DD date string
+              const offset = cellDate.getTimezoneOffset();
+              const localCellDate = new Date(cellDate.getTime() - (offset * 60 * 1000));
+              const dateStr = localCellDate.toISOString().split('T')[0];
+
+              const apiDay = dateMap[dateStr];
+              if (apiDay) {
+                weeks[w][d] = {
+                  level: levelMap[apiDay.contributionLevel] || 0,
+                  count: apiDay.contributionCount || 0,
+                  date: apiDay.date
+                };
+              }
             }
           }
 
           // Calculate total and streak
           let total = resData.totalContributions || 0;
           let streak = 0;
+
+          const flatDays = resData.contributions.flat();
           if (flatDays.length > 0) {
-            // Get local YYYY-MM-DD date string robustly
             const offset = new Date().getTimezoneOffset();
             const localDateObj = new Date(new Date().getTime() - (offset * 60 * 1000));
             const todayStr = localDateObj.toISOString().split('T')[0];
             
             let i = flatDays.length - 1;
-            // Skip future days in the current week
+            // Skip future days
             while (i >= 0 && flatDays[i].date > todayStr) {
               i--;
             }
@@ -285,7 +312,7 @@
         const launchDate = new Date('2026-01-01');
         const now = new Date();
         const diffDays = Math.floor((now - launchDate) / (1000 * 60 * 60 * 24));
-        const baseViews = 12450;
+        const baseViews = 150;
         const totalViews = baseViews + (diffDays * 12);
         viewCountEl.textContent = totalViews.toLocaleString();
       }
