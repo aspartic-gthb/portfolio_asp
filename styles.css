@@ -157,19 +157,58 @@ main.frame { border-left: 1px solid var(--border); border-right: 1px solid var(-
     align-items: flex-start;
   }
 }
+/* Cover Photo styling */
+.cover-photo {
+  position: relative;
+  width: 100%;
+  height: 9rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: var(--muted);
+}
+@media (min-width: 480px) {
+  .cover-photo {
+    height: 11rem;
+  }
+}
+@media (min-width: 640px) {
+  .cover-photo {
+    height: 13rem;
+  }
+}
+.cover-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.profile:has(.avatar) {
+  padding-top: 1rem;
+}
+@media (min-width: 640px) {
+  .profile:has(.avatar) {
+    padding-top: 1.5rem;
+  }
+}
+
 .avatar {
   height: 7rem; width: 7rem;
   border-radius: 9999px;
   background: var(--muted);
   object-fit: cover;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid var(--border);
+  border: 4px solid var(--background);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-top: -4.5rem;
+  position: relative;
+  z-index: 10;
 }
 .avatar:hover {
   transform: scale(1.05) rotate(2deg);
-  border-color: var(--foreground);
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
+
 .profile-meta {
   display: flex; align-items: center; justify-content: space-between;
   font-size: 0.75rem; color: var(--muted-foreground); margin-bottom: 0.5rem;
@@ -215,6 +254,34 @@ section.block { padding: 2.5rem 1.5rem; }
 .about-list .bullet {
   margin-top: 0.5rem; height: 0.375rem; width: 0.375rem; border-radius: 9999px; background: var(--foreground); flex-shrink: 0;
 }
+
+/* Quote block styling */
+.quote-block {
+  padding: 2.5rem 1.5rem;
+}
+@media (min-width: 640px) {
+  .quote-block {
+    padding: 2.5rem 2rem;
+  }
+}
+.quote-block blockquote {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--foreground);
+  max-width: 32rem;
+  font-style: italic;
+}
+.quote-block footer {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+
 
 /* Spotify Card */
 .spotify {
