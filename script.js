@@ -350,9 +350,16 @@
 
   const projects = [
     {
+      title: "MLC_merch",
+      desc: "SvelteKit exclusive merchandise store for Machine Learning Club NIT Silchar.",
+      action: "url:https://mlc-merch.vercel.app/",
+      type: "Project",
+      category: "E-commerce / SaaS"
+    },
+    {
       title: "FindInCampus",
-      desc: "AI-driven MERN stack lost and found platform with Gemini AI.",
-      action: "url:https://github.com/aspartic-gthb/FindInCampus",
+      desc: "[In Progress] AI-driven MERN stack lost and found platform with Gemini AI.",
+      action: "url:https://find-in-campus.vercel.app/",
       type: "Project",
       category: "MERN Stack / AI"
     },
@@ -365,8 +372,8 @@
     },
     {
       title: "Vyapar Setu",
-      desc: "AI-powered Hinglish Telegram business bot & dashboard for SMBs.",
-      action: "url:https://github.com/aspartic-gthb/vyapar-setu",
+      desc: "[In Progress] AI-powered Hinglish Telegram business bot & dashboard for SMBs.",
+      action: "url:https://vyapar-setu.onrender.com/dashboard",
       type: "Project",
       category: "AI / SaaS"
     },
