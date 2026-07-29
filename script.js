@@ -19,19 +19,11 @@
   const cells = document.getElementById('heatCells');
   if (cells) {
     const WEEKS = 53;
-    // Deterministic fake levels when the API fails — looks like activity but is not real data.
-    function fallbackLevel(w, d) {
-      const v = (Math.sin(w * 12.9898 + d * 78.233) * 43758.5453) % 1;
-      const r = Math.abs(v);
-      if (r < 0.55) return 0;
-      if (r < 0.75) return 1;
-      if (r < 0.88) return 2;
-      if (r < 0.96) return 3;
-      return 4;
-    }
+    const githubUser = (typeof CONFIG !== 'undefined' && CONFIG.IDENTITY && CONFIG.IDENTITY.GITHUB_USERNAME) 
+      ? CONFIG.IDENTITY.GITHUB_USERNAME 
+      : "aspartic-gthb";
 
-    function renderHeatmap(data) {
-      // Base date configuration for fallbacks
+    function renderHeatmap(weeksArray) {
       const today = new Date();
       const startOffset = today.getDay();
       const startDate = new Date(today);
@@ -50,7 +42,7 @@
       }
 
       let cellsHtml = '';
-      const hasApiData = data !== null;
+      const hasData = weeksArray !== null;
 
       for (let w = 0; w < WEEKS; w++) {
         cellsHtml += '<div class="heat-week">';
@@ -63,22 +55,13 @@
           let countVal = 0;
           let dateStr = dateStrFallback;
 
-          if (hasApiData) {
-            if (data[w] && data[w][d]) {
-              levelVal = data[w][d].level;
-              countVal = data[w][d].count;
-              dateStr = formatDateString(data[w][d].date);
-            } else {
-              levelVal = 0;
-              countVal = 0;
-              dateStr = dateStrFallback;
-            }
+          if (hasData && weeksArray[w] && weeksArray[w][d]) {
+            levelVal = weeksArray[w][d].level;
+            countVal = weeksArray[w][d].count;
+            dateStr = formatDateString(weeksArray[w][d].date);
           } else {
-            levelVal = fallbackLevel(w, d);
-            if (levelVal === 1) countVal = 1;
-            else if (levelVal === 2) countVal = 3;
-            else if (levelVal === 3) countVal = 6;
-            else if (levelVal === 4) countVal = 12;
+            levelVal = 0;
+            countVal = 0;
             dateStr = dateStrFallback;
           }
 
@@ -142,101 +125,110 @@
       });
     }
 
-    // The real deal: Fetching live data from GitHub
-    fetch('https://github-contributions-api.deno.dev/aspartic-gthb.json')
-      .then(res => res.json())
+    // Live fetching of GitHub contribution graph from jogruber API
+    fetch(`https://github-contributions-api.jogruber.de/v4/${githubUser}`)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
       .then(resData => {
-        // Create 53x7 array of objects
-        let weeks = Array.from({ length: WEEKS }, () => Array(7).fill(null));
-
-        // API returns quartile labels, not raw counts — map to CSS classes h0–h4.
-        const levelMap = {
-          'NONE': 0,
-          'FIRST_QUARTILE': 1,
-          'SECOND_QUARTILE': 2,
-          'THIRD_QUARTILE': 3,
-          'FOURTH_QUARTILE': 4
-        };
-
-        if (resData && resData.contributions) {
-          // Map API dates for direct lookup
+        if (resData && Array.isArray(resData.contributions) && resData.contributions.length > 0) {
           const dateMap = {};
-          resData.contributions.forEach(week => {
-            if (week) {
-              week.forEach(day => {
-                if (day && day.date) {
-                  dateMap[day.date] = day;
-                }
-              });
+          let totalInLastYear = 0;
+
+          const today = new Date();
+          const todayZero = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+          const oneYearAgoZero = new Date(todayZero);
+          oneYearAgoZero.setDate(todayZero.getDate() - 365);
+
+          resData.contributions.forEach(item => {
+            if (item && item.date) {
+              dateMap[item.date] = item;
+              const parts = item.date.split('-').map(Number);
+              const itemDate = new Date(parts[0], parts[1] - 1, parts[2]);
+              if (itemDate >= oneYearAgoZero && itemDate <= todayZero) {
+                totalInLastYear += (item.count || 0);
+              }
             }
           });
 
-          // Calculate start date of the local 53-week range
-          const today = new Date();
+          // Calculate 53 weeks starting from 52 weeks + offset ago
           const startOffset = today.getDay();
           const startDate = new Date(today);
           startDate.setDate(today.getDate() - (52 * 7 + startOffset));
 
-          // Populate local weeks array based on actual dates
+          const weeks = Array.from({ length: WEEKS }, () => Array(7).fill(null));
+
           for (let w = 0; w < WEEKS; w++) {
             for (let d = 0; d < 7; d++) {
               const cellDate = new Date(startDate);
               cellDate.setDate(startDate.getDate() + (w * 7 + d));
-              
-              // Get local YYYY-MM-DD date string
-              const offset = cellDate.getTimezoneOffset();
-              const localCellDate = new Date(cellDate.getTime() - (offset * 60 * 1000));
-              const dateStr = localCellDate.toISOString().split('T')[0];
+
+              const y = cellDate.getFullYear();
+              const m = String(cellDate.getMonth() + 1).padStart(2, '0');
+              const day = String(cellDate.getDate()).padStart(2, '0');
+              const dateStr = `${y}-${m}-${day}`;
 
               const apiDay = dateMap[dateStr];
               if (apiDay) {
                 weeks[w][d] = {
-                  level: levelMap[apiDay.contributionLevel] || 0,
-                  count: apiDay.contributionCount || 0,
-                  date: apiDay.date
+                  level: typeof apiDay.level === 'number' ? apiDay.level : 0,
+                  count: apiDay.count || 0,
+                  date: dateStr
+                };
+              } else {
+                weeks[w][d] = {
+                  level: 0,
+                  count: 0,
+                  date: dateStr
                 };
               }
             }
           }
 
-          // Calculate total and streak
-          let total = resData.totalContributions || 0;
+          // Streak calculation
           let streak = 0;
+          const sortedContribs = resData.contributions
+            .filter(c => c && c.date)
+            .sort((a, b) => a.date.localeCompare(b.date));
 
-          const flatDays = resData.contributions.flat();
-          if (flatDays.length > 0) {
-            const offset = new Date().getTimezoneOffset();
-            const localDateObj = new Date(new Date().getTime() - (offset * 60 * 1000));
-            const todayStr = localDateObj.toISOString().split('T')[0];
-            
-            let i = flatDays.length - 1;
-            // Skip future days
-            while (i >= 0 && flatDays[i].date > todayStr) {
-              i--;
+          const y = today.getFullYear();
+          const m = String(today.getMonth() + 1).padStart(2, '0');
+          const dayStr = String(today.getDate()).padStart(2, '0');
+          const todayStr = `${y}-${m}-${dayStr}`;
+
+          let idx = sortedContribs.findIndex(c => c.date === todayStr);
+          if (idx === -1) {
+            idx = sortedContribs.length - 1;
+            while (idx >= 0 && sortedContribs[idx].date > todayStr) idx--;
+          }
+
+          if (idx >= 0) {
+            // If today has 0 contributions, skip today to check yesterday
+            if (sortedContribs[idx].date === todayStr && sortedContribs[idx].count === 0) {
+              idx--;
             }
-            // If today's contribution count is 0, skip today to check yesterday
-            if (i >= 0 && flatDays[i].date === todayStr && flatDays[i].contributionCount === 0) {
-              i--;
-            }
-            // Count consecutive days with contributions > 0
-            while (i >= 0 && flatDays[i].contributionCount > 0) {
+            while (idx >= 0 && sortedContribs[idx].count > 0) {
               streak++;
-              i--;
+              idx--;
             }
           }
 
           const heatTotalEl = document.getElementById('heatTotal');
           const heatStreakEl = document.getElementById('heatStreak');
-          if (heatTotalEl) heatTotalEl.textContent = `${total} contributions in the last 365 days`;
+          if (heatTotalEl) heatTotalEl.textContent = `${totalInLastYear} contributions in the last 365 days`;
           if (heatStreakEl) {
             heatStreakEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2s4 4 4 8a4 4 0 1 1-8 0c0-2 1-4 4-8z" /></svg> ${streak} day streak`;
           }
+
+          renderHeatmap(weeks);
+        } else {
+          renderHeatmap(null);
         }
-        renderHeatmap(weeks);
       })
       .catch(err => {
-        console.error("Failed to fetch github contributions", err);
-        renderHeatmap(null); // use fallback on error
+        console.error("Failed to fetch GitHub contributions:", err);
+        renderHeatmap(null);
       });
   }
   // Last.fm widget (markup uses class "spotify" for styling only — not the Spotify API).
@@ -292,19 +284,29 @@
       try {
         const namespace = "aspartic-portfolio";
         const key = "main-visits";
-        // /up increments on every page load — refreshes inflate the count (not a read-only metric).
-        const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
+        // Guard using sessionStorage to prevent page reloads/navigation from artificially inflating visits
+        const hasVisited = sessionStorage.getItem('visited_portfolio_session');
+        const endpoint = hasVisited 
+          ? `https://api.counterapi.dev/v1/${namespace}/${key}`
+          : `https://api.counterapi.dev/v1/${namespace}/${key}/up`;
+
+        const response = await fetch(endpoint);
         const data = await response.json();
         
-        if (data && data.count) {
+        if (!hasVisited) {
+          sessionStorage.setItem('visited_portfolio_session', 'true');
+        }
+        
+        if (data && typeof data.count === 'number') {
           const totalViews = data.count;
           // Counting up animation for the visitor tally
-          let current = Math.max(0, totalViews - 20);
+          let current = Math.max(0, totalViews - 15);
+          viewCountEl.textContent = current.toLocaleString();
           const interval = setInterval(() => {
             current++;
             viewCountEl.textContent = current.toLocaleString();
             if (current >= totalViews) clearInterval(interval);
-          }, 50);
+          }, 40);
         }
       } catch (err) {
         console.error("CounterAPI error:", err);
@@ -312,8 +314,8 @@
         const launchDate = new Date('2026-01-01');
         const now = new Date();
         const diffDays = Math.floor((now - launchDate) / (1000 * 60 * 60 * 24));
-        const baseViews = 150;
-        const totalViews = baseViews + (diffDays * 12);
+        const baseViews = 300;
+        const totalViews = baseViews + (diffDays * 3);
         viewCountEl.textContent = totalViews.toLocaleString();
       }
     };
@@ -349,6 +351,13 @@
   let visibleItems = [];
 
   const projects = [
+    {
+      title: "FIFA Pulse",
+      desc: "Anonymous match-prediction voting & live operations telemetry dashboard for FIFA World Cup 2026.",
+      action: "url:https://fifa-pulse.onrender.com/",
+      type: "Project",
+      category: "Full-Stack / Telemetry"
+    },
     {
       title: "MLC_merch",
       desc: "SvelteKit exclusive merchandise store for Machine Learning Club NIT Silchar.",
