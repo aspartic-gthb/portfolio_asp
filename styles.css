@@ -615,6 +615,8 @@ section.block { padding: 2.5rem 1.5rem; }
 .tl-rail .node { height: 0.5rem; width: 0.5rem; border-radius: 9999px; background: var(--foreground); }
 .tl-rail .line { margin-top: 0.25rem; flex: 1; width: 1px; background: var(--border); }
 .tl-content { position: relative; }
+.tl-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem; }
+.tl-logo { width: 1.375rem; height: 1.375rem; object-fit: contain; border-radius: 0.25rem; flex-shrink: 0; }
 .tl-content h3 { font-size: 1rem; font-weight: 600; }
 .tl-content h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .tl-content h3 a::after {
@@ -787,26 +789,6 @@ section.quote-block { padding: 3rem 1.5rem; }
   .pixel-pet { bottom: 1rem; right: 1rem; transform: scale(0.8); }
 }
 
-/* Pulse Dot Animation */
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  background-color: #1DB954;
-  border-radius: 50%;
-  position: relative;
-}
-.pulse-dot::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border-radius: 50%;
-  background-color: #1DB954;
-  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-}
-@keyframes pulse-ring {
-  0% { transform: scale(0.33); opacity: 0.8; }
-  80%, 100% { transform: scale(2.5); opacity: 0; }
-}
 /* The Signoff: Footer credits and legal bits */
 .footer {
   padding: 2.5rem 1.5rem;
@@ -864,26 +846,16 @@ section.quote-block { padding: 3rem 1.5rem; }
   filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
 }
 
-/* Tech Stack: Categorized grid of tools */
-.tech-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-@media (min-width: 768px) {
-  .tech-container { grid-template-columns: repeat(3, 1fr); }
-}
-.tech-category h3 {
-  font-size: 0.75rem;
-  color: var(--muted-foreground);
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
+/* Tech Stack: Grid of tools */
 .tech-items {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
+}
+@media (min-width: 640px) {
+  .tech-items {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
 }
 .tech-item {
   display: flex;
